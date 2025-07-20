@@ -1,4 +1,4 @@
-function BtnContact({id, title, minia}) {
+function BtnContact() {
     return (
         <>
         
