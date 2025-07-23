@@ -1,13 +1,24 @@
+import dataProjet from '../data/projet.json'
+import BtnAdd from "../components/button/BtnAdd"
+import Card from "../components/Card"
 import Contact from "../components/Contact"
 
 function Portfolio() {
     return (
         <>
-        <h1>Porfolio</h1>
-        <div className="cardContainer">
-
-        </div>
-        <Contact />
+            <h1>Porfolio</h1>
+            <BtnAdd />
+            <div className="cardContainer">
+                {dataProjet.map((projet) => (
+                    <Card
+                        key={projet.id}
+                        id={projet.id}
+                        title={projet.title}
+                        cover={projet.minia}
+                    />
+                ))}
+            </div>
+            <Contact />
         </>
     )
 }

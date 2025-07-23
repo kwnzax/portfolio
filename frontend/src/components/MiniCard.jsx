@@ -1,18 +1,19 @@
-import BtnPageSite from './BtnPageSite'
+import BtnProjet from "./button/BtnProjet.jsx"
 
 
-function MiniCard({ id, title, minia }) {
+function MiniCard({ title, minia }) {
     return (
-        <>
-            <div className="miniCardFront">
+        <div>
+            <div className="miniCard">
                 <img src={minia} alt={title} />
                 <h3>{title}</h3>
             </div>
             <div className="miniCardContent">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                <BtnPageSite />
+                <h3>{title}</h3>
+                <p> <Description /> </p>
+                <BtnProjet />
             </div>
-        </>
+        </div>
     )
 }
 

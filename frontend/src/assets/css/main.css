@@ -1,0 +1,12 @@
+body {
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+@font-face {
+    font-family: 'Clash Display';
+    src: url(../Fonts/OTF/ClashDisplay-Bold.otf);
+} 
+
+h1, h2, h3{
+    font-family: 'Clash Display';
+}

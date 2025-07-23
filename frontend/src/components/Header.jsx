@@ -1,6 +1,6 @@
 import logo from '../assets/images/logo.svg'
 import Nav from './Nav'
-import BtnContact from './BtnContact'
+import BtnContact from './button/BtnContact'
 
 
 function Header() {

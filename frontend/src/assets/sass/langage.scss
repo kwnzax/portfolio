@@ -1,0 +1,56 @@
+.langageCard {
+    width: 200px;
+    padding: 16px;
+    margin: 12px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    background-color: white;
+    font-family: sans-serif;
+    transition: transform 0.2s ease;
+  }
+  
+  .langageCard:hover {
+    transform: translateY(-4px);
+  }
+  
+  .langageLogo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 8px;
+  }
+  
+  .progressBar {
+    width: 100%;
+    height: 10px;
+    background-color: #eee;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 8px;
+  }
+  
+  .progressFill {
+    height: 100%;
+    border-radius: 8px;
+    transition: width 1s ease-out;
+  }
+  
+  .green {
+    background-color: #4caf50;
+  }
+  
+  .orange {
+    background-color: #f9a825;
+  }
+  
+  .red {
+    background-color: #e53935;
+  }
+  
+  .progressLvl {
+    margin-top: 6px;
+    font-size: 14px;
+    color: #444;
+  }
+  

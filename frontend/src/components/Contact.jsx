@@ -1,4 +1,4 @@
-import BtnContact from "./BtnContact"
+import BtnContact from "./button/BtnContact"
 
 function Contact() {
     return (
