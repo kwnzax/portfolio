@@ -1,6 +1,8 @@
+import '../../assets/css/components/button/btnAdd.css'
+
 function BtnAdd() {
     return (
-        <button>Add +</button>
+        <button className="admin btnAdd">Add +</button>
     )
 }
 

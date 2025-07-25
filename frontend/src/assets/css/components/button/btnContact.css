@@ -1,0 +1,15 @@
+.btnContact {
+    font-family: 'Climate Crisis';
+    text-decoration: none;
+    background-color: #ede9e9;
+    border-radius: 50px;
+    color: #38040e;
+    font-size: 1.2rem;
+    padding: 14px 27px;
+}
+
+.btnContact:hover {
+    background-color: #ffffff;
+    color: #9E0B28;
+    filter: drop-shadow(0 0 3px #e1dcdc);
+}

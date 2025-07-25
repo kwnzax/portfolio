@@ -1,0 +1,43 @@
+nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px;
+    max-width: 1400px;
+    font-size: 1.2rem;
+}
+
+.logoKwnzax {
+    height: 60px;
+}
+
+.navBtn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 45px;
+}
+
+
+
+.navBar ul {
+        display: flex;
+        flex-direction: row;
+        gap: 45px;
+}
+
+.navBar a {
+    text-decoration: none;
+    transition: 400ms ease;
+}
+
+.navBar a:hover {
+    border: solid 1px #F2ECEC;
+    border-radius: 25px;
+    filter: drop-shadow(0 0 2px #F2ECEC);
+    background-color: #5A060E;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    transition: 400ms ease;
+}

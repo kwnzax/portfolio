@@ -3,7 +3,7 @@ import {faTrashCan} from '@fortawesome/free-solid-svg-icons'
 
 function BtnDelete() {
     return (
-        <button><FontAwesomeIcon icon={faTrashCan} /></button>
+        <button className='admin'><FontAwesomeIcon icon={faTrashCan} /></button>
     )
 }
 

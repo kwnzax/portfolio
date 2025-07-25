@@ -1,0 +1,22 @@
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 35px;
+    background-color: #38040e;
+}
+
+.footer ul {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.footerSocials a {
+    font-size: 2rem;
+}
+
+.footer a {
+    text-decoration: none;
+}

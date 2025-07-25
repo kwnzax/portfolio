@@ -1,5 +1,16 @@
+*{
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+
 body {
     font-family: 'Space Grotesk', sans-serif;
+    background-image: url('../images/background_dark_theme.svg');
+    background-position: 50% 0;
+    background-repeat: no-repeat;
+    background-size:auto;
+    background-color: #5A060E;
 }
 
 @font-face {
@@ -7,6 +18,15 @@ body {
     src: url(../Fonts/OTF/ClashDisplay-Bold.otf);
 } 
 
-h1, h2, h3{
+h1, h2, h3, h4{
     font-family: 'Clash Display';
+}
+
+.title {
+    display: flex;
+    gap: 15px;
+}
+
+ul {
+    list-style-type: none;
 }

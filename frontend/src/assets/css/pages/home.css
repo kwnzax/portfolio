@@ -1,0 +1,86 @@
+section {
+    margin-top: 150px;
+    margin-bottom: 250px;
+    max-width: 1200px;
+}
+
+h2 {
+    font-size: 3.3rem;
+    padding-left: 40px;
+}
+
+/****** section intro *********/
+.home h1 {
+    font-size: 10rem;
+}
+
+.homeIntro {
+    display: flex;
+    flex-direction: row;
+    padding: 60px 80px;
+    justify-content: center;
+    align-items: end;
+}
+
+.homeIntro p {
+    width: 70%;
+    font-size: 1.6rem;
+}
+
+.socialsIntro a {
+    font-size: 2.2rem;
+}
+
+.socialsIntro li {
+    background-color: #74070e;
+    margin: 15px 0;
+    padding: 10px 15px;
+    border: solid 1px #F2ECEC;
+    border-radius: 100%;
+}
+
+.socialsIntro li:hover {
+    background-color: #5A060E;
+    filter: drop-shadow(0 0 3px #F2ECEC);
+}
+
+
+/********* section projets *********/
+.miniCardContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 30px;
+    grid-row-gap: 30px;
+    width: 100%;
+}
+
+.showMore {
+    text-decoration: none;
+    font-size: 1.4rem;
+    width: 100%;
+    align-items: right;
+}
+
+.showMore:hover {
+    text-decoration: underline;
+}
+
+/************ section outils **********/
+
+
+
+
+/********** section à propos *********/
+
+
+
+/*********** section langages **********/
+.langagesContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 30px;
+    grid-row-gap: 30px;
+    width: 100%;
+}
+
+/************ section contact **********/

@@ -8,12 +8,12 @@ function Socials() {
             <ul>
                 <li>
                     <Link to="https://github.com/kwnzax">
-                        <FontAwesomeIcon icon={faGithub} />
+                        <FontAwesomeIcon icon={faGithub}/>
                     </Link>
                 </li>
                 <li>
                     <Link to="https://www.linkedin.com/in/kwnzax">
-                        <FontAwesomeIcon icon={faLinkedin} />
+                        <FontAwesomeIcon icon={faLinkedin}/>
                     </Link>
                 </li>
             </ul>

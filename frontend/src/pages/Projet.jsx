@@ -30,7 +30,7 @@ function Projet() {
 
     return (
         <div>
-            <div>
+            <div >
                 <h1>{Projet.title}</h1>
                 <Tags />
             </div>

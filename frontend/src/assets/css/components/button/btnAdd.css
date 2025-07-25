@@ -1,0 +1,9 @@
+.btnAdd {
+    background-color: #bc1620;
+    border: none;
+    border-radius: 25px;
+    padding: 5px 10px;
+    font-weight: 500;
+    margin-top: auto;
+    margin-bottom: auto;
+}

@@ -1,7 +1,8 @@
+import '../../assets/css/components/button/btnContact.css'
 
 function BtnContact() {
     return (
-        <a href="mailto:kenzatt@outlook.com"><button>Contact</button>
+        <a href="mailto:kenzatt@outlook.com" className="btnContact">Contact
         </a>
     )
 }

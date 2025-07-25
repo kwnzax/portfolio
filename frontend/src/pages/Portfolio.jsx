@@ -6,8 +6,10 @@ import Contact from "../components/Contact"
 function Portfolio() {
     return (
         <>
-            <h1>Porfolio</h1>
-            <BtnAdd />
+            <div className='title'>
+                <h1>Porfolio</h1>
+                <BtnAdd />
+            </div>
             <div className="cardContainer">
                 {dataProjet.map((projet) => (
                     <Card

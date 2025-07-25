@@ -1,12 +1,9 @@
 .langageCard {
-    width: 200px;
     padding: 16px;
     margin: 12px;
-    border-radius: 12px;
+    border-radius: 25px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    background-color: white;
-    font-family: sans-serif;
+    background-color: rgba(189, 16, 16, 0.431);
     transition: transform 0.2s ease;
   }
   
@@ -18,7 +15,6 @@
     width: 60px;
     height: 60px;
     object-fit: contain;
-    margin-bottom: 8px;
   }
   
   .progressBar {
@@ -39,9 +35,13 @@
   .green {
     background-color: #4caf50;
   }
+
+  .yellow {
+    background-color: #f1d72f;
+  }
   
   .orange {
-    background-color: #f9a825;
+    background-color: #fc9610;
   }
   
   .red {
@@ -51,6 +51,6 @@
   .progressLvl {
     margin-top: 6px;
     font-size: 14px;
-    color: #444;
+    color: #cdc8c8;
   }
   
