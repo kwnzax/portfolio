@@ -11,6 +11,7 @@ function ProjetModal({ isOpen, onClose, onSuccess }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const token = localStorage.getItem("token");
 
     if (images.length > 4) {
       alert("4 images max");
@@ -27,8 +28,10 @@ function ProjetModal({ isOpen, onClose, onSuccess }) {
     formData.append("codeGithub", codeGithub);
 
     try {
-      const res = await fetch("http://localhost:5000/api/projets", {
+      const res = await fetch("http://localhost:3000/api/projets", {
         method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`},
         body: formData,
       });
 

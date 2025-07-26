@@ -1,12 +1,11 @@
 
 
 function Tags({ tags }) {
+    console.log("Tags reçus :", tags);
     return (
         <div className="tagsContainer">
-            {tags.map((tag, id) => (
-                <span key={id} className="tag">
-                    {tag}
-                </span>
+            {tags && tags.map(tag => (
+                <span key={tag}>{tag}</span>
             ))}
         </div>
     )

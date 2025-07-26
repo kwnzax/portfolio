@@ -2,13 +2,13 @@ const Projet = require('../models/Projet');
 const fs = require('fs');
 
 exports.createProjet = (req, res, next) => {
-    const projetObject = JSON.parse(req.body.projet)
+    const projetObject = { ...req.body};
     delete projetObject._id;
-    delete projetObject._userId
 
     const projet = new Projet({
         ...projetObject,
-        images: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
+        minia: `${req.protocol}://${req.get("host")}/images/${req.processedMinia}`,
+        images: req.processedImages.map(name => `${req.protocol}://${req.get("host")}/images/${req.files.filename}`),
     });
     projet.save()
         .then(() => res.status(201).json({ message: 'Projet enregistré !' }))

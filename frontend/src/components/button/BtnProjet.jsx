@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 
 function BtnProjet({id}) {
     return (
-        <Link to={`/projet/${id}`} >
+        <Link to={`/projets/${id}`} >
             Voir le projet
         </Link>
     )

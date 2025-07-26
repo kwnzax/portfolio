@@ -1,7 +1,8 @@
+import Tags from "./Tags.jsx"
 import BtnProjet from "./button/BtnProjet.jsx"
 
 
-function MiniCard({ title, minia }) {
+function MiniCard({ title, minia, tags}) {
     return (
         <div>
             <div className="miniCard">
@@ -10,7 +11,7 @@ function MiniCard({ title, minia }) {
             </div>
             <div className="miniCardContent">
                 <h3>{title}</h3>
-                <p> <Description /> </p>
+                <Tags tags={tags}/> 
                 <BtnProjet />
             </div>
         </div>

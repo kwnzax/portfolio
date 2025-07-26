@@ -20,6 +20,7 @@ const processLogo = async (req, res, next) => {
     if (!req.file) return next();
 
     try {
+        const name = req.body.name.split(" ").join("_");
         const extension = MIME_TYPES[req.file.mimetype];
         const fileName = name + Date.now() + "." + extension
 
@@ -46,7 +47,7 @@ const processImages = async (req, res, next) => {
     }
 
     try {
-        const projetObject = JSON.parse(req.body.projet)
+        const projetObject = req.body
         const name = projetObject.title.split(" ").join("_")
         const processedImages = [];
 

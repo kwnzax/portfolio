@@ -2,9 +2,9 @@ const Tool = require('../models/Tool');
 const fs = require('fs');
 
 exports.createTool = (req, res, next) => {
-    const toolObject = JSON.parse(req.body.tool)
+    const toolObject = { ...req.body, ...req.file};
     delete toolObject._id;
-    delete toolObject._userId
+    
 
     const tool = new Tool({
         ...toolObject,

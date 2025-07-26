@@ -2,9 +2,8 @@ const Skill = require('../models/Skill');
 const fs = require('fs');
 
 exports.createSkill = (req, res, next) => {
-    const skillObject = JSON.parse(req.body.skill)
+    const skillObject = { ...req.body, ...req.file};
     delete skillObject._id;
-    delete skillObject._userId
 
     const skill = new Skill({
         ...skillObject,

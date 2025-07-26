@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import '../assets/css/pages/Home.css'
-import dataProjet from '../data/projet.json'
-import dataTool from '../data/tool.json'
-import dataSkills from '../data/skills.json'
+
 import MiniCard from '../components/MiniCard.jsx'
+import Tool from '../components/Tool.jsx'
+import Skills from '../components/Skills.jsx'
 import About from '../components/About.jsx'
 import Contact from '../components/Contact.jsx'
 import Socials from '../components/Socials.jsx'
@@ -16,11 +16,49 @@ import AdminAcces from '../components/AdminAcces.jsx';
 
 
 function Home() {
+  const [projets, setProjets] = useState([]);
+  const [tools, setTools] = useState([]);
+  const [skills, setSkills] = useState([]);
   const [openModal, setOpenModal] = useState(null);
 
   const open = (type) => setOpenModal(type);
   const close = () => setOpenModal(null);
 
+  const fetchProjets = async () => {
+    const res = await fetch("http://localhost:3000/api/projets");
+    if (!res.ok) {
+      console.error("Erreur fetch tools");
+      return;
+    }
+    const data = await res.json();
+    setProjets(data);
+  };
+
+  const fetchTools = async () => {
+    const res = await fetch("http://localhost:3000/api/tools");
+    if (!res.ok) {
+      console.error("Erreur fetch tools");
+      return;
+    }
+    const data = await res.json();
+    setTools(data);
+  };
+
+  const fetchSkills = async () => {
+    const res = await fetch("http://localhost:3000/api/skills");
+    if (!res.ok) {
+      console.error("Erreur fetch tools");
+      return;
+    }
+    const data = await res.json();
+    setSkills(data);
+  };
+
+  useEffect(() => {
+    fetchTools();
+    fetchProjets();
+    fetchSkills();
+  }, []);
 
   return (
     <div className='home'>
@@ -38,15 +76,15 @@ function Home() {
             <BtnAdd onClick={() => open("projet")}/>
           </AdminAcces>
         </div>
-        <ProjetModal isOpen={openModal === "projet"} onClose={close}/>
+        <ProjetModal isOpen={openModal === "projet"} onClose={close} onSuccess={() => { fetchProjets() }}/>
         <div className='miniCardContainer'>
-          {dataProjet.map(() => (
+          {projets.map((projet) => (
             <MiniCard
               key={projet.id}
               id={projet.id}
               title={projet.title}
-              minia={projet.cover}
-              description={projet.description}
+              minia={projet.minia}
+              tags={projet.tags}
             />
           ))}
         </div>
@@ -59,14 +97,14 @@ function Home() {
             <BtnAdd onClick={() => open("tool")}/>
           </AdminAcces>
         </div>
-        <ToolModal isOpen={openModal === "tool"} onClose={close} />
+        <ToolModal isOpen={openModal === "tool"} onClose={close} onSuccess={() => { fetchTools() }}/>
         <div className='outilContainer'>
-          {dataTool.map(() => (
+          {tools.map((tool) => (
             <Tool
               key={tool.id}
               id={tool.id}
-              title={tool.name}
-              minia={tool.logo}
+              name={tool.name}
+              logo={tool.logo}
             />
           ))}
         </div>
@@ -81,14 +119,14 @@ function Home() {
             <BtnAdd onClick={() => open("skill")}/>
           </AdminAcces>
         </div>
-        <SkillModal isOpen={openModal === "skill"} onClose={close}/>
+        <SkillModal isOpen={openModal === "skill"} onClose={close} onSuccess={() => { fetchSkills() }}/>
         <div className='skillsContainer'>
-          {dataSkills.map(() => (
+          {skills.map((skills) => (
             <Skills
               key={skills.id}
               id={skills.id}
-              title={skills.name}
-              minia={skills.logo}
+              name={skills.name}
+              logo={skills.logo}
               level={skills.level}
             />
           ))}

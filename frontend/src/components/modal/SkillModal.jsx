@@ -7,6 +7,7 @@ function SkillModal({ isOpen, onClose, onSuccess }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const token = localStorage.getItem("token");
 
     const formData = new FormData();
     formData.append("name", name);
@@ -16,6 +17,8 @@ function SkillModal({ isOpen, onClose, onSuccess }) {
     try {
       const res = await fetch("http://localhost:3000/api/skills", {
         method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`},
         body: formData,
       });
 

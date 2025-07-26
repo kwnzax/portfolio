@@ -6,14 +6,17 @@ function ToolModal({ isOpen, onClose, onSuccess }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const token = localStorage.getItem("token");
 
     const formData = new FormData();
     formData.append("logo", logoFile); 
-    formData.append("name", logoname);
+    formData.append("name", name);
 
     try {
       const res = await fetch("http://localhost:3000/api/tools", {
         method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`},
         body: formData,
       });
 
