@@ -3,7 +3,8 @@ import dataProjet from '../data/projet.json'
 import BtnAdd from "../components/button/BtnAdd"
 import Card from "../components/Card"
 import Contact from "../components/Contact"
-import ProjetModal from '../components/ProjetModal'
+import ProjetModal from '../components/modal/ProjetModal'
+import AdminAcces from "../components/AdminAcces";
 
 function Portfolio() {
     const [openModal, setOpenModal] = useState(null);
@@ -15,7 +16,9 @@ function Portfolio() {
         <>
             <div className='title'>
                 <h1>Porfolio</h1>
-                <BtnAdd onClick={() => open("projet")}/>
+                <AdminAcces>
+                    <BtnAdd onClick={() => open("projet")}/> 
+                </AdminAcces>
             </div>
             <ProjetModal isOpen={openModal === "projet"} onClose={close}/>
             <div className="cardContainer">

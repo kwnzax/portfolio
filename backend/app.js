@@ -3,6 +3,7 @@ require('dotenv').config()
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const cors = require("cors");
 const userRoutes = require('./routes/admin');
 const path = require('path');
 const projetsRoutes = require('./routes/Projets');
@@ -17,16 +18,22 @@ mongoose.connect(`mongodb+srv://${process.env.adminData}:${process.env.adminData
 
 app.use(express.json());
 
+app.use(cors({
+    origin: "http://localhost:5173", 
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true 
+}));
+
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Application/json, Authorization');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
 });
 
 
-app.use('/api/auth', userRoutes);
+app.use('/api/login', userRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/projets', projetsRoutes);
 app.use('/api/tools', toolsRoutes);

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import BtnUpdate from './button/BtnUpdate'
 import BtnDelete from './button/BtnDelete'
+import AdminAcces from './AdminAcces'
 
 
 
@@ -13,8 +14,10 @@ function Card({ id, title, minia }) {
                     <h2>{title}</h2>
                 </Link>
             </div>
-            <BtnUpdate />
-            <BtnDelete />
+            <AdminAcces>
+                <BtnUpdate />
+                <BtnDelete />
+            </AdminAcces>
         </div>
     )
 }

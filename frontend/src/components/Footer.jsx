@@ -1,10 +1,39 @@
+import { useState, useEffect } from "react";
 import '../assets/css/components/footer.css'
+import LoginModal from './modal/LoginModal';
 import Socials from './Socials'
 
 function Footer() {
+
+    const [isLoginOpen, setIsLoginOpen] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            setIsAuthenticated(true);
+        }
+    }, []);
+
+    const handleLoginSuccess = () => {
+        setIsAuthenticated(true);
+        setIsLoginOpen(false);
+    };
+
+        const handleLogout = () => {
+            localStorage.removeItem("token");
+            setIsAuthenticated(false);
+            window.location.reload();
+        };
+
     return (
         <div className='footer'>
-            <a href="#">Connexion</a>
+            <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} onSuccess={handleLoginSuccess} />
+            {!isAuthenticated ? (
+                <button onClick={() => setIsLoginOpen(true)}>Connexion</button>
+            ) : (
+                <button onClick={handleLogout}>Déconnexion</button>
+            )}
             <p>© 2025 Kwnzax - Tous droits réservés</p>
             <div className='footerSocials'>
                 <Socials />

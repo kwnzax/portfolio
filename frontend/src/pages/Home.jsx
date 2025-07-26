@@ -12,6 +12,7 @@ import BtnAdd from '../components/button/BtnAdd.jsx'
 import ToolModal from '../components/modal/ToolModal.jsx'
 import SkillModal from '../components/modal/SkillModal.jsx'
 import ProjetModal from '../components/modal/ProjetModal.jsx'
+import AdminAcces from '../components/AdminAcces.jsx';
 
 
 function Home() {
@@ -33,7 +34,9 @@ function Home() {
       <section>
         <div className='title'>
           <h2>Portfolio</h2>
-          <BtnAdd onClick={() => open("projet")}/>
+          <AdminAcces>
+            <BtnAdd onClick={() => open("projet")}/>
+          </AdminAcces>
         </div>
         <ProjetModal isOpen={openModal === "projet"} onClose={close}/>
         <div className='miniCardContainer'>
@@ -52,7 +55,9 @@ function Home() {
       <section>
         <div className='title'>
           <h2>Outils</h2>
-          <BtnAdd onClick={() => open("tool")}/>
+          <AdminAcces>
+            <BtnAdd onClick={() => open("tool")}/>
+          </AdminAcces>
         </div>
         <ToolModal isOpen={openModal === "tool"} onClose={close} />
         <div className='outilContainer'>
@@ -72,7 +77,9 @@ function Home() {
       <section>
         <div className='title'>
           <h2>Skills</h2>
-          <BtnAdd onClick={() => open("skill")}/>
+          <AdminAcces>
+            <BtnAdd onClick={() => open("skill")}/>
+          </AdminAcces>
         </div>
         <SkillModal isOpen={openModal === "skill"} onClose={close}/>
         <div className='skillsContainer'>

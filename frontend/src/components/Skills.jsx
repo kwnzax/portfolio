@@ -1,4 +1,6 @@
-
+import BtnUpdate from './button/BtnUpdate'
+import BtnDelete from './button/BtnDelete'
+import AdminAcces from './AdminAcces'
 
 function Skills({ logo, name, level }) {
 
@@ -19,6 +21,10 @@ function Skills({ logo, name, level }) {
                 </div>
                 <p className="progressLvl">{level}%</p>
             </div>
+            <AdminAcces>
+                <BtnUpdate />
+                <BtnDelete />
+            </AdminAcces>
         </div>
     )
 }

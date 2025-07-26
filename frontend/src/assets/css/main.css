@@ -13,6 +13,13 @@ body {
     background-color: #5A060E;
 }
 
+/*main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}*/
+
 @font-face {
     font-family: 'Clash Display';
     src: url(../Fonts/OTF/ClashDisplay-Bold.otf);
