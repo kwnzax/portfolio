@@ -1,6 +1,6 @@
 
 
-function Langage({ logo, name, level }) {
+function Skills({ logo, name, level }) {
 
     let progressColor = "";
     if (level >= 80) progressColor = "green";
@@ -9,8 +9,8 @@ function Langage({ logo, name, level }) {
     else progressColor = "red";
 
     return (
-        <div className="langageCard">
-            <img src={logo} alt={name} className="langageLogo"/>
+        <div className="skillsCard">
+            <img src={logo} alt={name} className="skillsLogo"/>
             <div>
                 <h4>{name}</h4>
                 <p>Niveau de maitrise</p>
@@ -23,4 +23,4 @@ function Langage({ logo, name, level }) {
     )
 }
 
-export default Langage
+export default Skills

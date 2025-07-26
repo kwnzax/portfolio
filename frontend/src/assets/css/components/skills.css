@@ -1,4 +1,4 @@
-.langageCard {
+.skillsCard {
     padding: 16px;
     margin: 12px;
     border-radius: 25px;
@@ -7,11 +7,11 @@
     transition: transform 0.2s ease;
   }
   
-  .langageCard:hover {
+  .skillsCard:hover {
     transform: translateY(-4px);
   }
   
-  .langageLogo {
+  .skillsLogo {
     width: 60px;
     height: 60px;
     object-fit: contain;

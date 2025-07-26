@@ -1,15 +1,26 @@
 import { Link } from 'react-router-dom'
+import { useState } from "react";
 import '../assets/css/pages/Home.css'
 import dataProjet from '../data/projet.json'
 import dataTool from '../data/tool.json'
-import dataLangage from '../data/langage.json'
+import dataSkills from '../data/skills.json'
 import MiniCard from '../components/MiniCard.jsx'
 import About from '../components/About.jsx'
 import Contact from '../components/Contact.jsx'
 import Socials from '../components/Socials.jsx'
 import BtnAdd from '../components/button/BtnAdd.jsx'
+import ToolModal from '../components/toolModal.jsx'
+import SkillModal from '../components/SkillModal.jsx'
+import ProjetModal from '../components/ProjetModal.jsx'
+
 
 function Home() {
+  const [openModal, setOpenModal] = useState(null);
+
+  const open = (type) => setOpenModal(type);
+  const close = () => setOpenModal(null);
+
+
   return (
     <div className='home'>
       <section className='homeIntro'>
@@ -22,8 +33,9 @@ function Home() {
       <section>
         <div className='title'>
           <h2>Portfolio</h2>
-          <BtnAdd />
+          <BtnAdd onClick={() => open("projet")}/>
         </div>
+        <ProjetModal isOpen={openModal === "projet"} onClose={close}/>
         <div className='miniCardContainer'>
           {dataProjet.map(() => (
             <MiniCard
@@ -40,8 +52,9 @@ function Home() {
       <section>
         <div className='title'>
           <h2>Outils</h2>
-          <BtnAdd />
+          <BtnAdd onClick={() => open("tool")}/>
         </div>
+        <ToolModal isOpen={openModal === "tool"} onClose={close} />
         <div className='outilContainer'>
           {dataTool.map(() => (
             <Tool
@@ -58,17 +71,18 @@ function Home() {
       </section>
       <section>
         <div className='title'>
-          <h2>Langages</h2>
-          <BtnAdd />
+          <h2>Skills</h2>
+          <BtnAdd onClick={() => open("skill")}/>
         </div>
-        <div className='langagesContainer'>
-          {dataLangage.map(() => (
-            <Langage
-              key={langage.id}
-              id={langage.id}
-              title={langage.name}
-              minia={langage.logo}
-              level={langage.level}
+        <SkillModal isOpen={openModal === "skill"} onClose={close}/>
+        <div className='skillsContainer'>
+          {dataSkills.map(() => (
+            <Skills
+              key={skills.id}
+              id={skills.id}
+              title={skills.name}
+              minia={skills.logo}
+              level={skills.level}
             />
           ))}
         </div>

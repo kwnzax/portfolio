@@ -1,8 +1,8 @@
 import '../../assets/css/components/button/btnAdd.css'
 
-function BtnAdd() {
+function BtnAdd({ onClick }) {
     return (
-        <button className="admin btnAdd">Add +</button>
+        <button className="admin btnAdd" onClick={onClick}>Add +</button>
     )
 }
 
