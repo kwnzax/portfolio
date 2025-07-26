@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/admin');
-//const path = require('path');
+const path = require('path');
 const projetsRoutes = require('./routes/Projets');
 const toolsRoutes = require('./routes/tools');
 const skillsRoutes = require('./routes/skills');
@@ -27,7 +27,7 @@ app.use((req, res, next) => {
 
 
 app.use('/api/auth', userRoutes);
-//app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/projets', projetsRoutes);
 app.use('/api/tools', toolsRoutes);
 app.use('/api/skills', skillsRoutes);

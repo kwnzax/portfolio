@@ -2,13 +2,13 @@ const Tool = require('../models/Tool');
 const fs = require('fs');
 
 exports.createTool = (req, res, next) => {
-    const toolObject = JSON.parse(req.body.book)
+    const toolObject = JSON.parse(req.body.tool)
     delete toolObject._id;
     delete toolObject._userId
 
     const tool = new Tool({
         ...toolObject,
-        logo: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
+        logo: `${req.protocol}://${req.get("host")}/images/${req.processedLogo}`,
     });
     tool.save()
         .then(() => res.status(201).json({ message: 'Outil enregistré !' }))

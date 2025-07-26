@@ -2,13 +2,13 @@ const Skill = require('../models/Skill');
 const fs = require('fs');
 
 exports.createSkill = (req, res, next) => {
-    const skillObject = JSON.parse(req.body.book)
+    const skillObject = JSON.parse(req.body.skill)
     delete skillObject._id;
     delete skillObject._userId
 
     const skill = new Skill({
         ...skillObject,
-        logo: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
+        logo: `${req.protocol}://${req.get("host")}/images/${req.processedLogo}`,
     });
     skill.save()
         .then(() => res.status(201).json({ message: 'Skill enregistré !' }))
@@ -24,7 +24,7 @@ exports.getAllSkills = (req, res, next) => {
 exports.modifySkill = (req, res, next) => {
     const skillObject = req.file ? {
         ...JSON.parse(req.body.skill),
-        logo: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        logo: `${req.protocol}://${req.get('host')}/images/${req.processedLogo}`
     } : { ...req.body };
 
     delete skillObject._userId;

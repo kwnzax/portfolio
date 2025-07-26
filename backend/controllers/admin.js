@@ -5,9 +5,12 @@ exports.login = (req, res, next) => {
     if (email === `${process.env.adminEmail}` && password === `${process.env.adminPwd}`) {
         res.status(200).json({
             token: jwt.sign(
-                'RANDOM_TOKEN_SECRET',
+                { email }, 
+                process.env.JWT_SECRET,
                 { expiresIn: '24h' }
-            )});
+            )
+        });
+        return res.status(200).json({ token });
     } else {
         res.status(401).json({ error: "Accès refusé" });
     }

@@ -9,9 +9,9 @@ import About from '../components/About.jsx'
 import Contact from '../components/Contact.jsx'
 import Socials from '../components/Socials.jsx'
 import BtnAdd from '../components/button/BtnAdd.jsx'
-import ToolModal from '../components/toolModal.jsx'
-import SkillModal from '../components/SkillModal.jsx'
-import ProjetModal from '../components/ProjetModal.jsx'
+import ToolModal from '../components/modal/ToolModal.jsx'
+import SkillModal from '../components/modal/SkillModal.jsx'
+import ProjetModal from '../components/modal/ProjetModal.jsx'
 
 
 function Home() {

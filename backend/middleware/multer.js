@@ -9,11 +9,40 @@ const MIME_TYPES = {
 }
 
 const storage = multer.memoryStorage()
-const upload = multer({ storage: storage }).array("images", 5);
+const uploadProjet = multer({ storage }).fields([
+    { name: "minia", maxCount: 1 },
+    { name: "images", maxCount: 4 },
+]);
+
+const uploadLogo = multer({ storage }).single("logo");
+
+const processLogo = async (req, res, next) => {
+    if (!req.file) return next();
+
+    try {
+        const extension = MIME_TYPES[req.file.mimetype];
+        const fileName = name + Date.now() + "." + extension
+
+        const buffer = await sharp(req.file.buffer)
+            .resize({ height: 200 })
+            .toFormat("webp")
+            .toBuffer();
+
+        const imagePath = `images/${fileName}`;
+        await fs.writeFile(imagePath, buffer);
+
+        req.processedLogo = fileName;
+        next();
+    } catch (error) {
+        console.error("Error processing logo:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+};
+
 
 const processImages = async (req, res, next) => {
-    if (!req.files || req.files.length === 0) {
-        return next()
+    if (!req.files || (!req.files["minia"] && !req.files["images"])) {
+        return next();
     }
 
     try {
@@ -21,31 +50,52 @@ const processImages = async (req, res, next) => {
         const name = projetObject.title.split(" ").join("_")
         const processedImages = [];
 
-        for (const file of req.files) {
-            const extension = MIME_TYPES[file.mimetype]
+        if (req.files["images"]) {
+
+            for (const file of req.files["images"]) {
+                const extension = MIME_TYPES[file.mimetype]
+                const fileName = name + Date.now() + "." + extension
+
+                const buffer = await sharp(file.buffer)
+                    .resize({
+                        height: 595,
+                        fit: sharp.fit.outside,
+                        position: sharp.strategy.entropy,
+                    })
+                    .toFormat("webp")
+                    .toBuffer()
+
+                const imagePath = `images/${fileName}`
+                await fs.writeFile(imagePath, buffer)
+
+                processedImages.push(fileName)
+            }
+        }
+
+        let miniaFileName = "";
+        if (req.files["minia"]) {
+            const minia = req.files["minia"][0];
+            const extension = MIME_TYPES[minia.mimetype];
             const fileName = name + Date.now() + "." + extension
 
-            const buffer = await sharp(file.buffer)
-                .resize({
-                    height: 595,
-                    fit: sharp.fit.outside,
-                    position: sharp.strategy.entropy,
-                })
+            const buffer = await sharp(minia.buffer)
+                .resize({ height: 400, fit: sharp.fit.outside })
                 .toFormat("webp")
-                .toBuffer()
+                .toBuffer();
 
-            const imagePath = `images/${fileName}`
-            await fs.writeFile(imagePath, buffer)
-
-            processedImages.push(fileName)
+            const imagePath = `images/${fileName}`;
+            await fs.writeFile(imagePath, buffer);
+            miniaFileName = fileName;
         }
 
-            req.prossecedImages = processedImages
-            next()
-        } catch (error) {
-            console.error("Error processing image:", error)
-            res.status(500).json({ error: "Internal server error." })
-        }
+        req.processedImages = processedImages;
+        req.processedMinia = miniaFileName;
+
+        next()
+    } catch (error) {
+        console.error("Error processing image:", error)
+        res.status(500).json({ error: "Internal server error." })
     }
+}
 
-module.exports = { upload, processImages };
+module.exports = { uploadProjet, processImages, uploadLogo, processLogo };
