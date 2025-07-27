@@ -13,6 +13,12 @@ body {
     background-color: #5A060E;
 }
 
+section {
+    margin-top: 150px;
+    margin-bottom: 250px;
+    max-width: 1200px;
+}
+
 /*main {
     display: flex;
     flex-direction: column;

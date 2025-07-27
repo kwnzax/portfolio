@@ -15,10 +15,17 @@ function Projet() {
     const [projet, setProjet] = useState(null);
 
     useEffect(() => {
-        const foundProjet = data.find(item => item.id === id);
-
-        if (foundProjet) {
-            setProjet(foundProjet);
+        const fetchOneProjet = async () => {
+            const res = await fetch("http://localhost:3000/api/projets/:id");
+            if (!res.ok) {
+              console.error("Erreur fetch projet");
+              return;
+            }
+            const data = await res.json();
+            setProjet(data);
+          };
+        if (fetchOneProjet) {
+            setProjet(fetchOneProjet);
         } else {
             navigate('/404');
         }

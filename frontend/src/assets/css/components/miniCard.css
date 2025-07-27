@@ -1,0 +1,22 @@
+.miniCardCover {
+    position: relative;
+    background-color: #971f1f33;
+    height: 330px;
+    border-radius: 55px;
+}
+
+.miniCardCover img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 55px;
+}
+
+.miniCardCover h3 {
+    position: relative;
+    bottom: 20%;
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 15px;
+}

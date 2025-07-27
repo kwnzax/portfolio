@@ -1,0 +1,30 @@
+.toolCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background-color: rgba(146, 20, 20, 0.5);
+    filter: drop-shadow(0 0 4px rgb(35, 14, 14));
+    width: 125px;
+    border-radius: 45px;
+    padding: 20px;
+}
+
+.toolImg {
+    height: 85px;
+}
+
+.toolName {
+    font-size: 1.3rem;
+}
+
+.toolCard .trash{
+    position: absolute;
+    left: 85%;
+    bottom: 85%;
+    padding: 8px 10px;
+    border-radius: 100px;
+    border: none;
+    background-color: #bc1620;
+}

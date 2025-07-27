@@ -1,11 +1,12 @@
+import '../assets/css/components/miniCard.css'
 import Tags from "./Tags.jsx"
 import BtnProjet from "./button/BtnProjet.jsx"
 
 
 function MiniCard({ title, minia, tags}) {
     return (
-        <div>
-            <div className="miniCard">
+        <div className='miniCard'>
+            <div className="miniCardCover">
                 <img src={minia} alt={title} />
                 <h3>{title}</h3>
             </div>

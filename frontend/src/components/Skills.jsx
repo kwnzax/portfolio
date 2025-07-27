@@ -1,3 +1,4 @@
+import '../assets/css/components/skills.css'
 import BtnUpdate from './button/BtnUpdate'
 import BtnDelete from './button/BtnDelete'
 import AdminAcces from './AdminAcces'
@@ -12,14 +13,16 @@ function Skills({ logo, name, level }) {
 
     return (
         <div className="skillsCard">
-            <img src={logo} alt={name} className="skillsLogo"/>
-            <div>
+            <img src={logo} alt={name} className="skillsLogo" />
+            <div className='skillsContent'>
                 <h4>{name}</h4>
                 <p>Niveau de maitrise</p>
-                <div className="progressBar">
-                    <div className={`progressFill ${progressColor}`} style={{ width: `${level}%` }}></div>
+                <div className='skillsLvl'>
+                    <div className="progressBar">
+                        <div className={`progressFill ${progressColor}`} style={{ width: `${level}%` }}></div>
+                    </div>
+                    <p className="progressLvl">{level}%</p>
                 </div>
-                <p className="progressLvl">{level}%</p>
             </div>
             <AdminAcces>
                 <BtnUpdate />

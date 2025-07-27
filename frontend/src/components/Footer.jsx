@@ -30,9 +30,9 @@ function Footer() {
         <div className='footer'>
             <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} onSuccess={handleLoginSuccess} />
             {!isAuthenticated ? (
-                <button onClick={() => setIsLoginOpen(true)}>Connexion</button>
+                <button className='footerBtn' onClick={() => setIsLoginOpen(true)}>Connexion</button>
             ) : (
-                <button onClick={handleLogout}>Déconnexion</button>
+                <button className='footerBtn' onClick={handleLogout}>Déconnexion</button>
             )}
             <p>© 2025 Kwnzax - Tous droits réservés</p>
             <div className='footerSocials'>

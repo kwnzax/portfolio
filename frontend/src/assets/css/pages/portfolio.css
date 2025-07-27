@@ -1,0 +1,20 @@
+
+
+.title h1{
+    font-size: 8rem;
+    padding-left: 40px;
+}
+
+.portfolio .title {
+    margin-bottom: 130px;
+}
+
+.cardContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 30px;
+    grid-row-gap: 30px;
+    width: 100%;
+    padding: 40px;
+    box-sizing: border-box;
+}

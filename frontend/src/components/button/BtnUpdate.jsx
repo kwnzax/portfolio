@@ -3,7 +3,7 @@ import {faPenToSquare} from '@fortawesome/free-solid-svg-icons'
 
 function BtnUpdate() {
     return (
-        <button className='admin'><FontAwesomeIcon icon={faPenToSquare} /></button>
+        <button className='admin edit'><FontAwesomeIcon icon={faPenToSquare} size='xl'/></button>
     )
 }
 

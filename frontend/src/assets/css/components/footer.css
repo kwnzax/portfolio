@@ -17,6 +17,9 @@
     font-size: 2rem;
 }
 
-.footer button {
-    text-decoration: none;
+.footerBtn {
+    border: none;
+    background-color: #38040e;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem;
 }

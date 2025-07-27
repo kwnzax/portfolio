@@ -1,0 +1,35 @@
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.card a {
+    text-decoration: none;
+}
+
+.cardTitle {
+    text-align: center;
+    padding: 15px;
+}
+
+.card .trash {
+    position: absolute;
+    left: 84%;
+    bottom: 95%;
+    padding: 10px 11px;
+    border-radius: 100%;
+    border: none;
+    background-color: #bc1620;
+    z-index: 1;
+}
+
+.card .edit {
+    position: absolute;
+    left: 76%;
+    bottom: 95%;
+    padding: 10px 10px;
+    border-radius: 100px;
+    border: none;
+    background-color: #bc1620;
+}

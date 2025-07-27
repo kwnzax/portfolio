@@ -27,7 +27,7 @@ function Home() {
   const fetchProjets = async () => {
     const res = await fetch("http://localhost:3000/api/projets");
     if (!res.ok) {
-      console.error("Erreur fetch tools");
+      console.error("Erreur fetch projets");
       return;
     }
     const data = await res.json();
@@ -47,7 +47,7 @@ function Home() {
   const fetchSkills = async () => {
     const res = await fetch("http://localhost:3000/api/skills");
     if (!res.ok) {
-      console.error("Erreur fetch tools");
+      console.error("Erreur fetch skills");
       return;
     }
     const data = await res.json();
@@ -90,7 +90,7 @@ function Home() {
         </div>
         <Link to="/portfolio" className='showMore'>Afficher plus</Link>
       </section>
-      <section>
+      <section className='homeOutils'>
         <div className='title'>
           <h2>Outils</h2>
           <AdminAcces>
