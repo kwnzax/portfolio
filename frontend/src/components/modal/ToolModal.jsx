@@ -1,22 +1,40 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 function ToolModal({ isOpen, onClose, onSuccess }) {
   const [name, setName] = useState("");
   const [logoFile, setLogoFile] = useState(null);
+  const modalRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen, onClose]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
 
     const formData = new FormData();
-    formData.append("logo", logoFile); 
+    formData.append("logo", logoFile);
     formData.append("name", name);
 
     try {
       const res = await fetch("http://localhost:3000/api/tools", {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${token}`},
+          "Authorization": `Bearer ${token}`
+        },
         body: formData,
       });
 
@@ -33,39 +51,33 @@ function ToolModal({ isOpen, onClose, onSuccess }) {
 
   if (!isOpen) return null;
   return (
-    <div className="modal fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-xl shadow-md w-full max-w-md space-y-4"
-      >
-        <h2 className="text-xl font-bold">Ajouter un outil</h2>
+    <div className="modalBackground">
+      <div className="modal" ref={modalRef}>
+        <form onSubmit={handleSubmit} className="modalContent">
+          <h2>Ajouter un outil</h2>
 
-        <input
-          name="logo"
-          type="file"
-          accept="image/*"
-          onChange={(e) => setLogoFile(e.target.files[0])}
-          required
-        />
+          <input
+            name="logo"
+            type="file"
+            accept="image/*"
+            onChange={(e) => setLogoFile(e.target.files[0])}
+            required
+          />
 
-        <input
-          name="name"
-          placeholder="Nom"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="border p-2 w-full"
-          required
-        />
+          <input
+            name="name"
+            placeholder="Nom"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
 
-        <div className="flex justify-end gap-2">
-          <button type="button" onClick={onClose} className="bg-gray-200 px-4 py-2 rounded">
-            Annuler
-          </button>
-          <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
-            Ajouter
-          </button>
-        </div>
-      </form>
+          <div className="modalBtn">
+            <button type="button" onClick={onClose} > Annuler </button>
+            <button type="submit" > Ajouter </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

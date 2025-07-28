@@ -24,18 +24,21 @@ exports.getAllTools = (req, res, next) => {
 exports.deleteTool = (req, res, next) => {
     Tool.findOne({ _id: req.params.id })
         .then(tool => {
-            if (tool.userId != req.auth.userId) {
-                res.status(403).json({ message: 'Not authorized' });
-            } else {
-                const filename = tool.images.split('/images/')[1];
-                fs.unlink(`images/${filename}`, () => {
-                    Tool.deleteOne({ _id: req.params.id })
-                        .then(() => { res.status(200).json({ message: 'Outil supprimé !' }) })
-                        .catch(error => res.status(401).json({ error }));
+            if (!tool) {
+                return res.status(404).json({ error: "Outil non trouvé" });
+            }
+            const logoFilename = tool.logo.split('/images/')[1];
+            if (logoFilename) {
+                fs.unlink(`images/${logoFilename}`, err => {
+                    if (err) console.error("Erreur suppression logo :", err);
                 });
             }
+
+            Tool.deleteOne({ _id: req.params.id })
+                .then(() => res.status(200).json({ message: "Outil supprimé !" }))
+                .catch(error => res.status(400).json({ error }));
         })
         .catch(error => {
-            res.status(500).json({ error });
+            res.status(500).json({ error: error.message });
         });
 };

@@ -6,7 +6,6 @@ function Nav() {
         <div className='navBar'>
             
             <ul>
-                <li><button>🌑</button></li>
                 <li><Link to="/" >Accueil</Link></li>
                 <li><Link to="/portfolio">Portfolio</Link></li>
                 <li><Link to="/about">À propos</Link></li>

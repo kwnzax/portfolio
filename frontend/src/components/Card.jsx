@@ -6,7 +6,7 @@ import AdminAcces from './AdminAcces'
 
 
 
-function Card({ id, title, minia }) {
+function Card({ id, title, minia, onEdit }) {
     return (
         <div className='card'>
             <Link to={`/projet/${id}`}>
@@ -14,8 +14,8 @@ function Card({ id, title, minia }) {
                 <h2 className='cardTitle'>{title}</h2>
             </Link>
             <AdminAcces>
-                <BtnUpdate />
-                <BtnDelete />
+                <BtnUpdate id={id} onClick={onEdit}/>
+                <BtnDelete id={id} type="projets" onDelete={() => window.location.reload()}/>
             </AdminAcces>
         </div>
     )

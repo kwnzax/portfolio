@@ -1,9 +1,8 @@
 import '../assets/css/components/skills.css'
-import BtnUpdate from './button/BtnUpdate'
 import BtnDelete from './button/BtnDelete'
 import AdminAcces from './AdminAcces'
 
-function Skills({ logo, name, level }) {
+function Skills({ id, logo, name, level }) {
 
     let progressColor = "";
     if (level >= 80) progressColor = "green";
@@ -25,8 +24,7 @@ function Skills({ logo, name, level }) {
                 </div>
             </div>
             <AdminAcces>
-                <BtnUpdate />
-                <BtnDelete />
+                <BtnDelete id={id} type="skills" onDelete={() => window.location.reload()}/>
             </AdminAcces>
         </div>
     )

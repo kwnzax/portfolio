@@ -20,20 +20,22 @@ function Footer() {
         setIsLoginOpen(false);
     };
 
-        const handleLogout = () => {
-            localStorage.removeItem("token");
-            setIsAuthenticated(false);
-            window.location.reload();
-        };
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        setIsAuthenticated(false);
+        window.location.reload();
+    };
 
     return (
         <div className='footer'>
-            <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} onSuccess={handleLoginSuccess} />
-            {!isAuthenticated ? (
-                <button className='footerBtn' onClick={() => setIsLoginOpen(true)}>Connexion</button>
-            ) : (
-                <button className='footerBtn' onClick={handleLogout}>Déconnexion</button>
-            )}
+            <div>
+                {!isAuthenticated ? (
+                    <button className='footerBtn' onClick={() => setIsLoginOpen(true)}>Connexion</button>
+                ) : (
+                    <button className='footerBtn' onClick={handleLogout}>Déconnexion</button>
+                )}
+                <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} onSuccess={handleLoginSuccess} />
+            </div>
             <p>© 2025 Kwnzax - Tous droits réservés</p>
             <div className='footerSocials'>
                 <Socials />

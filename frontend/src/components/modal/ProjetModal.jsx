@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
-function ProjetModal({ isOpen, onClose, onSuccess }) {
+function ProjetModal({ isOpen, onClose, onSuccess, mode = "add", projet = null }) {
   const [minia, setMinia] = useState(null);
   const [images, setImages] = useState([]);
   const [title, setTitle] = useState("");
@@ -8,6 +8,41 @@ function ProjetModal({ isOpen, onClose, onSuccess }) {
   const [contrainte, setContrainte] = useState("");
   const [tags, setTags] = useState("");
   const [codeGithub, setCodeGithub] = useState("");
+  const modalRef = useRef(null);
+
+  useEffect(() => {
+    if (mode === "edit" && projet) {
+      setTitle(projet.title || "");
+      setDescription(projet.description || "");
+      setContrainte(projet.contrainte || "");
+      setTags(projet.tags || "");
+      setCodeGithub(projet.codeGithub || "");
+    } else if (mode === "add") {
+      setTitle("");
+      setDescription("");
+      setContrainte("");
+      setTags("");
+      setCodeGithub("");
+      setMinia(null);
+      setImages([]);
+    }
+  }, [mode, projet, isOpen]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen, onClose]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,19 +54,26 @@ function ProjetModal({ isOpen, onClose, onSuccess }) {
     }
 
     const formData = new FormData();
-    formData.append("minia", minia);
+    if (minia) formData.append("minia", minia);
     images.forEach((img) => formData.append("images", img));
     formData.append("title", title);
     formData.append("description", description);
     formData.append("contrainte", contrainte);
-    formData.append("tags", tags); 
+    formData.append("tags", tags);
     formData.append("codeGithub", codeGithub);
 
+    const url = mode === "edit"
+      ? `http://localhost:3000/api/projets/${projet._id}`
+      : `http://localhost:3000/api/projets`;
+
+    const method = mode === "edit" ? "PUT" : "POST";
+
     try {
-      const res = await fetch("http://localhost:3000/api/projets", {
-        method: "POST",
+      const res = await fetch(url, {
+        method,
         headers: {
-          "Authorization": `Bearer ${token}`},
+          Authorization: `Bearer ${token}`,
+        },
         body: formData,
       });
 
@@ -49,81 +91,71 @@ function ProjetModal({ isOpen, onClose, onSuccess }) {
   if (!isOpen) return null;
 
   return (
-    <div className="modal fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-xl shadow-md w-full max-w-xl space-y-4"
-      >
-        <h2 className="text-xl font-bold">Ajouter un projet</h2>
+    <div className="modalBackground">
+      <div className="modal" ref={modalRef}>
+        <form onSubmit={handleSubmit} className="modalContent">
+          <h2>{mode === "edit" ? "Modifier un projet" : "Ajouter un projet"}</h2>
 
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => setMinia(e.target.files[0])}
-          required
-        />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setMinia(e.target.files[0])}
+            {...(mode === "add" ? { required: true } : {})}
+          />
 
-        <input
-          type="text"
-          placeholder="Titre"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-          className="border p-2 w-full"
-        />
+          <input
+            type="text"
+            placeholder="Titre"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
 
-        <input
-          type="file"
-          accept="image/*"
-          multiple
-          onChange={(e) => setImages(Array.from(e.target.files).slice(0, 4))}
-          required
-        />
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={(e) => setImages(Array.from(e.target.files).slice(0, 4))}
+            {...(mode === "add" ? { required: true } : {})}
+          />
 
-        <textarea
-          placeholder="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className="border p-2 w-full"
-          required
-        />
+          <textarea
+            placeholder="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
 
-        <input
-          type="text"
-          placeholder="Contraintes"
-          value={contrainte}
-          onChange={(e) => setContrainte(e.target.value)}
-          className="border p-2 w-full"
-          required
-        />
+          <input
+            type="text"
+            placeholder="Contraintes"
+            value={contrainte}
+            onChange={(e) => setContrainte(e.target.value)}
+            required
+          />
 
-        <input
-          type="text"
-          placeholder="Tags (ex: React, Node, MongoDB)"
-          value={tags}
-          onChange={(e) => setTags(e.target.value)}
-          className="border p-2 w-full"
-          required
-        />
+          <input
+            type="text"
+            placeholder="Tags (ex: React, Node, MongoDB)"
+            value={tags}
+            onChange={(e) => setTags(e.target.value)}
+            required
+          />
 
-        <input
-          type="url"
-          placeholder="Lien GitHub"
-          value={codeGithub}
-          onChange={(e) => setCodeGithub(e.target.value)}
-          className="border p-2 w-full"
-          required
-        />
+          <input
+            type="url"
+            placeholder="Lien GitHub"
+            value={codeGithub}
+            onChange={(e) => setCodeGithub(e.target.value)}
+            required
+          />
 
-        <div className="flex justify-end gap-2">
-          <button type="button" onClick={onClose} className="bg-gray-200 px-4 py-2 rounded">
-            Annuler
-          </button>
-          <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
-            Ajouter
-          </button>
-        </div>
-      </form>
+          <div className="modalBtn">
+            <button type="button" onClick={onClose}>Annuler</button>
+            <button type="submit">{mode === "edit" ? "Modifier" : "Ajouter"}</button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

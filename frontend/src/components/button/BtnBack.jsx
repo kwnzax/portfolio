@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 
 function BtnBack() {
     return (
-        <Link to={portfolio}>
+        <Link to="/portfolio">
             <button>Voir d'autres projet</button>
         </Link>
     )

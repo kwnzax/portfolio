@@ -2,13 +2,13 @@ const Projet = require('../models/Projet');
 const fs = require('fs');
 
 exports.createProjet = (req, res, next) => {
-    const projetObject = { ...req.body};
+    const projetObject = { ...req.body };
     delete projetObject._id;
 
     const projet = new Projet({
         ...projetObject,
         minia: `${req.protocol}://${req.get("host")}/images/${req.processedMinia}`,
-        images: req.processedImages.map(name => `${req.protocol}://${req.get("host")}/images/${req.files.filename}`),
+        images: req.processedImages.map(name => `${req.protocol}://${req.get("host")}/images/${name}`),
     });
     projet.save()
         .then(() => res.status(201).json({ message: 'Projet enregistré !' }))
@@ -51,20 +51,34 @@ exports.modifyProjet = (req, res, next) => {
 
 exports.deleteProjet = (req, res, next) => {
     Projet.findOne({ _id: req.params.id })
-        .then(projet => {
-            if (projet.userId != req.auth.userId) {
-                res.status(403).json({ message: 'Not authorized' });
-            } else {
-                const filename = projet.images.split('/images/')[1];
-                fs.unlink(`images/${filename}`, () => {
-                    Projet.deleteOne({ _id: req.params.id })
-                        .then(() => { res.status(200).json({ message: 'Projet supprimé !' }) })
-                        .catch(error => res.status(401).json({ error }));
-                });
+      .then(projet => {
+        if (!projet) {
+          return res.status(404).json({ error: "Projet non trouvé" });
+        }
+  
+        const miniaFilename = projet.minia.split('/images/')[1];
+        if (miniaFilename) {
+          fs.unlink(`images/${miniaFilename}`, err => {
+            if (err) console.error("Erreur suppression minia :", err);
+          });
+        }
+  
+        if (Array.isArray(projet.images)) {
+          projet.images.forEach(imageUrl => {
+            const filename = imageUrl.split('/images/')[1];
+            if (filename) {
+              fs.unlink(`images/${filename}`, err => {
+                if (err) console.error("Erreur suppression image :", err);
+              });
             }
-        })
-        .catch(error => {
-            res.status(500).json({ error });
-        });
-};
-
+          });
+        }
+  
+        Projet.deleteOne({ _id: req.params.id })
+          .then(() => res.status(200).json({ message: "Projet supprimé !" }))
+          .catch(error => res.status(400).json({ error }));
+      })
+      .catch(error => {
+        res.status(500).json({ error: error.message });
+      });
+  };

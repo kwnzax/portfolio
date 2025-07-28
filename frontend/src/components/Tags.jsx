@@ -1,7 +1,6 @@
 
 
 function Tags({ tags }) {
-    console.log("Tags reçus :", tags);
     return (
         <div className="tagsContainer">
             {tags && tags.map(tag => (

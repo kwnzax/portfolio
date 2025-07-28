@@ -73,10 +73,10 @@ function Home() {
         <div className='title'>
           <h2>Portfolio</h2>
           <AdminAcces>
-            <BtnAdd onClick={() => open("projet")}/>
+            <BtnAdd onClick={() => open("projet")} />
           </AdminAcces>
         </div>
-        <ProjetModal isOpen={openModal === "projet"} onClose={close} onSuccess={() => { fetchProjets() }}/>
+        <ProjetModal isOpen={openModal === "projet"} onClose={close} onSuccess={() => { fetchProjets() }} />
         <div className='miniCardContainer'>
           {projets.map((projet) => (
             <MiniCard
@@ -94,15 +94,15 @@ function Home() {
         <div className='title'>
           <h2>Outils</h2>
           <AdminAcces>
-            <BtnAdd onClick={() => open("tool")}/>
+            <BtnAdd onClick={() => open("tool")} />
           </AdminAcces>
         </div>
-        <ToolModal isOpen={openModal === "tool"} onClose={close} onSuccess={() => { fetchTools() }}/>
+        <ToolModal isOpen={openModal === "tool"} onClose={close} onSuccess={() => { fetchTools() }} />
         <div className='outilContainer'>
           {tools.map((tool) => (
             <Tool
-              key={tool.id}
-              id={tool.id}
+              key={tool._id}
+              id={tool._id}
               name={tool.name}
               logo={tool.logo}
             />
@@ -116,15 +116,15 @@ function Home() {
         <div className='title'>
           <h2>Skills</h2>
           <AdminAcces>
-            <BtnAdd onClick={() => open("skill")}/>
+            <BtnAdd onClick={() => open("skill")} />
           </AdminAcces>
         </div>
-        <SkillModal isOpen={openModal === "skill"} onClose={close} onSuccess={() => { fetchSkills() }}/>
+        <SkillModal isOpen={openModal === "skill"} onClose={close} onSuccess={() => { fetchSkills() }} />
         <div className='skillsContainer'>
           {skills.map((skills) => (
             <Skills
-              key={skills.id}
-              id={skills.id}
+              key={skills._id}
+              id={skills._id}
               name={skills.name}
               logo={skills.logo}
               level={skills.level}

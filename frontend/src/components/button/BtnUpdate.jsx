@@ -1,9 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faPenToSquare} from '@fortawesome/free-solid-svg-icons'
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 
-function BtnUpdate() {
+function BtnUpdate({ onClick }) {
     return (
-        <button className='admin edit'><FontAwesomeIcon icon={faPenToSquare} size='xl'/></button>
+        <button className='admin edit' onClick={onClick}>
+            <FontAwesomeIcon icon={faPenToSquare} size='xl' />
+        </button>
     )
 }
 

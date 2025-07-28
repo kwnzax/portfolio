@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import Tags from '../components/Tags'
 import Description from '../components/description'
 import Contrainte from '../components/Contrainte'
@@ -11,46 +11,37 @@ import Contact from "../components/Contact"
 
 function Projet() {
     const { id } = useParams();
-    const navigate = useNavigate();
     const [projet, setProjet] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchOneProjet = async () => {
-            const res = await fetch("http://localhost:3000/api/projets/:id");
-            if (!res.ok) {
-              console.error("Erreur fetch projet");
-              return;
-            }
-            const data = await res.json();
-            setProjet(data);
-          };
-        if (fetchOneProjet) {
-            setProjet(fetchOneProjet);
-        } else {
-            navigate('/404');
-        }
-    }, [id, navigate]);
+        fetch(`http://localhost:3000/api/projets/${id}`)
+            .then((res) => res.json())
+            .then((data) => setProjet(data))
+            .catch(() => navigate("/"));
+    }, [id]);
 
-    if (!projet) {
-        return <></>;
-    }
+    if (!projet) return <p></p>;
 
     return (
         <div>
             <div >
-                <h1>{Projet.title}</h1>
-                <Tags />
+                <h1>{projet.title}</h1>
+                <Tags tags={projet.tags} />
             </div>
             <div >
                 <div>
-                    <Description />
-                    <Contrainte />
+                    <Description
+                        minia={projet.minia}
+                        description={projet.description}
+                    />
+                    <Contrainte contrainte={projet.contrainte} />
                 </div>
-                <Slider />
+                <Slider images={projet.images} />
             </div>
             <div>
                 <BtnBack />
-                <BtnGithub />
+                <BtnGithub lien={projet.lien}/>
             </div>
             <Contact />
         </div>

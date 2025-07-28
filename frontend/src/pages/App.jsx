@@ -4,6 +4,7 @@ import Footer from '../components/Footer.jsx'
 import Home from './Home.jsx'
 import Portfolio from './Portfolio.jsx'
 import NotFound from './NotFound'
+import Projet from './Projet.jsx'
 
 function Layout() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="portfolio" element={<Portfolio />} />
+          <Route path="projet/:id" element={<Projet />} />
           <Route path="/404" element={<NotFound />} />
           <Route path="*" element={<NotFound />} />
         </Route>

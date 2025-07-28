@@ -37,7 +37,7 @@ function LoginModal({ isOpen, onClose, onSuccess }) {
             onSuccess();
             onClose();
             window.location.reload();
-            
+
         } catch (err) {
             console.error("Erreur dans la requête:", err);
             setError("Erreur serveur. Réessaie plus tard.");
@@ -47,30 +47,33 @@ function LoginModal({ isOpen, onClose, onSuccess }) {
     if (!isOpen) return null;
 
     return (
-        <div className="modal">
-            <form onSubmit={handleSubmit} className="modal-content">
-                <h2>Connexion</h2>
-                <input
-                    name="email"
-                    type="email"
-                    placeholder="Email"
-                    onChange={handleChange}
-                    value={formData.email}
-                    required
-                />
-                <input
-                    name="password"
-                    type="password"
-                    placeholder="Mot de passe"
-                    onChange={handleChange}
-                    value={formData.password}
-                    required
-                />
-                {error && <p className="error">{error}</p>}
-                <button type="submit">Se connecter</button>
-                <button type="button" onClick={onClose}>Annuler</button>
-            </form>
-        </div>
+            <div className="loginModal">
+                <form onSubmit={handleSubmit} >
+                    <div className="loginInput">
+                        <input
+                            name="email"
+                            type="email"
+                            placeholder="Email"
+                            onChange={handleChange}
+                            value={formData.email}
+                            required
+                        />
+                        <input
+                            name="password"
+                            type="password"
+                            placeholder="Mot de passe"
+                            onChange={handleChange}
+                            value={formData.password}
+                            required
+                        />
+                        {error && <p className="error">{error}</p>}
+                    </div>
+                    <div className="loginBtn">
+                        <button type="button" onClick={onClose}>Annuler</button>
+                        <button type="submit">Se connecter</button>
+                    </div>
+                </form>
+            </div>
     );
 }
 

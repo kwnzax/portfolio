@@ -22,4 +22,29 @@
     background-color: #38040e;
     font-family: 'Space Grotesk', sans-serif;
     font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.loginModal {
+    margin-top: 10px;
+}
+
+.loginInput {
+    display: flex;
+    gap: 5px;
+}
+
+.loginInput input{
+    color: black;
+}
+
+.loginBtn button {
+    border: none;
+    background-color: #38040e;
+    padding-top: 7px;
+    padding-right: 10px;
+}
+
+.loginBtn button:hover {
+    text-decoration: underline;
 }

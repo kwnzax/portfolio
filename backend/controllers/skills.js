@@ -2,7 +2,7 @@ const Skill = require('../models/Skill');
 const fs = require('fs');
 
 exports.createSkill = (req, res, next) => {
-    const skillObject = { ...req.body, ...req.file};
+    const skillObject = { ...req.body, ...req.file };
     delete skillObject._id;
 
     const skill = new Skill({
@@ -45,18 +45,21 @@ exports.modifySkill = (req, res, next) => {
 exports.deleteSkill = (req, res, next) => {
     Skill.findOne({ _id: req.params.id })
         .then(skill => {
-            if (skill.userId != req.auth.userId) {
-                res.status(403).json({ message: 'Not authorized' });
-            } else {
-                const filename = skill.images.split('/images/')[1];
-                fs.unlink(`images/${filename}`, () => {
-                    Skill.deleteOne({ _id: req.params.id })
-                        .then(() => { res.status(200).json({ message: 'Skill supprimé !' }) })
-                        .catch(error => res.status(401).json({ error }));
+            if (!skill) {
+                return res.status(404).json({ error: "Skill non trouvé" });
+            }
+            const logoFilename = skill.logo.split('/images/')[1];
+            if (logoFilename) {
+                fs.unlink(`images/${logoFilename}`, err => {
+                    if (err) console.error("Erreur suppression logo :", err);
                 });
             }
+
+            Skill.deleteOne({ _id: req.params.id })
+                .then(() => res.status(200).json({ message: "Skill supprimé !" }))
+                .catch(error => res.status(400).json({ error }));
         })
         .catch(error => {
-            res.status(500).json({ error });
+            res.status(500).json({ error: error.message });
         });
 };
