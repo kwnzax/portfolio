@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useState, useEffect } from "react";
 import '../assets/css/pages/Home.css'
 
@@ -16,6 +16,7 @@ import AdminAcces from '../components/AdminAcces.jsx';
 
 
 function Home() {
+  const location = useLocation();
   const [projets, setProjets] = useState([]);
   const [tools, setTools] = useState([]);
   const [skills, setSkills] = useState([]);
@@ -59,6 +60,15 @@ function Home() {
     fetchProjets();
     fetchSkills();
   }, []);
+
+  useEffect(() => {
+    if (location.hash) {
+      const el = document.querySelector(location.hash);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [location]);
 
   return (
     <div className='home'>
@@ -109,7 +119,7 @@ function Home() {
           ))}
         </div>
       </section>
-      <section className='homeAbout'>
+      <section className='homeAbout' id='about'>
         <About />
       </section>
       <section>
