@@ -13,9 +13,14 @@ body {
     background-color: #5A060E;
 }
 
+.page {
+    display: flex;
+    justify-content: center;
+}
+
 section {
     margin-top: 150px;
-    margin-bottom: 250px;
+    margin-bottom: 150px;
     max-width: 1200px;
 }
 
@@ -51,13 +56,10 @@ ul {
 }
 
 .modal {
-    position: absolute;
-    left: 25%;
-    top: 30%;
     width: 40%;
     background-color: #5A060E;
     margin: 0;
-    padding: 30px 50px;
+    padding: 50px;
     border-radius: 15px;
 }
 
@@ -66,4 +68,71 @@ ul {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    gap: 25px;
+}
+
+.modalContent h2 {
+    padding-left: 0;
+    font-size: 2rem;
+    padding-bottom: 15px;
+}
+
+.modalContent input,
+textarea {
+    width: 90%;
+    height: 45px;
+    border-radius: 10px;
+    border: none;
+    filter: drop-shadow(0 0 4px rgb(35, 14, 14));
+    color: #5A060E;
+    font-family: 'Space Grotesk';
+}
+
+.addImgBtn {
+    display: flex;
+    gap: 15px;
+}
+
+.fileBtn {
+    border: none;
+    border-radius: 15px;
+    padding: 15px 10px;
+    background-color: #9E0B28;
+    filter: drop-shadow(0 0 4px rgb(35, 14, 14));
+    color: white;
+    font-size: 1.2rem;
+}
+
+.previewContainer {
+    display: flex;
+    gap: 15px;
+}
+
+.preview {
+    max-width: 100px;
+    max-height: 100px;
+    margin: 5px;
+    object-fit: cover;
+}
+
+.imagePreviewContainer {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.modalBtn {
+    display: flex;
+    gap: 20px;
+    padding-top: 20px;
+}
+
+.modalBtn button {
+    border: none;
+    text-decoration: none;
+    border-radius: 50px;
+    background-color: #38040e;
+    font-size: 1.2rem;
+    padding: 14px 27px;
 }

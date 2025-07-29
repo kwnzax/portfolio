@@ -1,0 +1,14 @@
+.tagsContainer {
+    display: flex;
+    gap: 10px;
+}
+
+.tagBadge {
+    padding: 5px 10px;
+    background-color: rgba(146, 20, 20, 0.5);
+    border-radius: 25px;
+}
+
+.tagBadge:hover {
+    opacity: 0.8;
+}

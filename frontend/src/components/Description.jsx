@@ -1,10 +1,10 @@
 function Description({minia, description}) {
     return (
-        <div>
+        <div className='projetMinia'>
             <div>
                 <img src={minia}/>
             </div>
-            <div>
+            <div className="projetDescription">
                 <h2>Déscription</h2>
                 <p>{description}</p>
             </div>

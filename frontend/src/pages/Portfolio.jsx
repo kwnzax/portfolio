@@ -21,54 +21,55 @@ function Portfolio() {
             return;
         }
         const data = await res.json();
-        setProjets(data);
+        setProjets(data.reverse());
     };
 
     useEffect(() => { fetchProjets() }, []);
 
     return (
-        <div>
-            <section className="portfolio">
-                <div className='title'>
-                    <h1>Porfolio</h1>
-                    <AdminAcces>
-                        <BtnAdd onClick={() => open("projet")} />
-                    </AdminAcces>
-                </div>
-                <ProjetModal isOpen={openModal === "projet"} onClose={close} onSuccess={() => { fetchProjets() }} />
-                <ProjetModal
-                    isOpen={openModal === "editProjet"}
-                    onClose={() => {
-                        close();
-                        setSelectedProjet(null);
-                    }}
-                    onSuccess={() => {
-                        fetchProjets();
-                        setSelectedProjet(null);
-                    }}
-                    mode="edit"
-                    projet={selectedProjet}
-                />
-                <div className="cardContainer">
-                    {projets.map((projet) => (
-                        <Card
-                            key={projet._id}
-                            id={projet._id}
-                            title={projet.title}
-                            minia={projet.minia}
-                            onEdit={() => {
-                                setSelectedProjet(projet);
-                                open("editProjet");
-                            }}
-                        />
-                    ))}
-                </div>
-            </section>
-            <section>
-                <Contact />
-            </section>
+        <div className="page">
+            <div className="portfolioPage">
+                <section className="portfolio">
+                    <div className='title'>
+                        <h1>Porfolio</h1>
+                        <AdminAcces>
+                            <BtnAdd onClick={() => open("projet")} />
+                        </AdminAcces>
+                    </div>
+                    <ProjetModal isOpen={openModal === "projet"} onClose={close} onSuccess={() => { fetchProjets() }} />
+                    <ProjetModal
+                        isOpen={openModal === "editProjet"}
+                        onClose={() => {
+                            close();
+                            setSelectedProjet(null);
+                        }}
+                        onSuccess={() => {
+                            fetchProjets();
+                            setSelectedProjet(null);
+                        }}
+                        mode="edit"
+                        projet={selectedProjet}
+                    />
+                    <div className="cardContainer">
+                        {projets.map((projet) => (
+                            <Card
+                                key={projet._id}
+                                id={projet._id}
+                                title={projet.title}
+                                minia={projet.minia}
+                                onEdit={() => {
+                                    setSelectedProjet(projet);
+                                    open("editProjet");
+                                }}
+                            />
+                        ))}
+                    </div>
+                </section>
+                <section>
+                    <Contact />
+                </section>
+            </div>
         </div>
-
     )
 }
 

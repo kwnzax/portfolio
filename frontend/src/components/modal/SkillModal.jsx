@@ -57,14 +57,21 @@ function SkillModal({ isOpen, onClose, onSuccess }) {
     <div className="modalBackground">
       <div className="modal" ref={modalRef}>
         <form onSubmit={handleSubmit} className="modalContent">
-          <h2>Ajouter un skill</h2>
+          <h2>Nouveau skill</h2>
 
           <input
+            id="logo"
             type="file"
+            name="logo"
             accept="image/*"
             onChange={(e) => setLogoFile(e.target.files[0])}
             required
+            style={{ display: "none" }}
           />
+
+          <label htmlFor="logo" className="fileBtn">
+            Ajouter un logo
+          </label>
 
           <input
             type="text"

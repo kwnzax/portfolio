@@ -1,0 +1,81 @@
+.projetId {
+    margin-top: 150px;
+}
+
+.projetTitle {
+    display: flex;
+    align-items: end;
+    gap: 30px;
+    margin-bottom: 150px;
+}
+
+.projetTitle h1 {
+    font-size: 6rem;
+}
+
+.projetTags {
+    padding-bottom: 25px;
+} 
+
+.projet .edit {
+    margin-bottom: 30px;
+    padding: 10px 10px;
+    border-radius: 100px;
+    border: none;
+    background-color: #bc1620;
+}
+
+.projetMinia {
+    display: flex;
+    flex-direction: row;
+    background-color: rgba(116, 7, 14, 0.3);
+    filter: drop-shadow(0 0 5px rgb(35, 14, 14));
+    border: solid 0.5px #74070E;
+    border-radius: 50px;
+    gap: 20px;
+    margin: 85px 0px;
+}
+
+.projetDescription {
+    display: flex;
+    flex-direction: column;
+    padding: 35px;
+    justify-content: center;
+}
+
+.projetDescription h2 {
+    padding-left: 0;
+}
+
+.projetDescription p{
+    padding: 30px;
+    font-size: 1.4rem;
+}
+
+.projetContrainte {
+    background-color: rgba(116, 7, 14, 0.3);
+    filter: drop-shadow(0 0 5px rgb(35, 14, 14));
+    border: solid 0.5px #74070E;
+    border-radius: 50px;
+    margin-bottom: 85px;
+    padding: 40px;
+}
+
+.projetContrainte p{
+    padding: 30px;
+    font-size: 1.4rem;
+}
+
+.projetBtn {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 40px;
+}
+
+.projet a {
+    text-decoration: none;
+}
+
+.projet .contact {
+    margin: 200px 0;
+}

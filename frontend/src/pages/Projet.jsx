@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import '../assets/css/pages/projet.css'
 import Tags from '../components/Tags'
 import Description from '../components/description'
 import Contrainte from '../components/Contrainte'
@@ -7,12 +8,24 @@ import Slider from '../components/Slider'
 import BtnBack from "../components/button/BtnBack"
 import BtnGithub from '../components/button/BtnGithub'
 import Contact from "../components/Contact"
+import AdminAcces from '../components/AdminAcces'
+import BtnUpdate from '../components/button/BtnUpdate'
+import ProjetModal from '../components/modal/ProjetModal'
 
 
 function Projet() {
     const { id } = useParams();
     const [projet, setProjet] = useState(null);
     const navigate = useNavigate();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleEditClick = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
 
     useEffect(() => {
         fetch(`http://localhost:3000/api/projets/${id}`)
@@ -24,29 +37,49 @@ function Projet() {
     if (!projet) return <p></p>;
 
     return (
-        <div>
-            <div >
-                <h1>{projet.title}</h1>
-                <Tags tags={projet.tags} />
+        <div className='page'>
+            <div className='projet'>
+                <section className='projetId'>
+                    <div className='projetTitle'>
+                        <h1>{projet.title}</h1>
+                        <div className='projetTags'>
+                            <Tags tags={projet.tags} />
+                        </div>
+                        <AdminAcces>
+                            <BtnUpdate id={projet._id} onClick={handleEditClick} className='edit' />
+                        </AdminAcces>
+                        <ProjetModal
+                            isOpen={isModalOpen}
+                            onClose={handleCloseModal}
+                            onSuccess={() => {
+                                handleCloseModal();
+                                window.location.reload();
+                            }}
+                            mode="edit"
+                            projet={projet}
+                        />
+                    </div>
+                    <div className='projetMain' >
+                        <div >
+                            <Description
+                                minia={projet.minia}
+                                description={projet.description}
+                            />
+                            <Contrainte contrainte={projet.contrainte} />
+                        </div>
+                        <Slider images={projet.images} />
+                    </div>
+                    <div className='projetBtn'>
+                        <BtnBack />
+                        <BtnGithub lien={projet.lien} />
+                    </div>
+                </section>
+                <section >
+                    <Contact />
+                </section>
             </div>
-            <div >
-                <div>
-                    <Description
-                        minia={projet.minia}
-                        description={projet.description}
-                    />
-                    <Contrainte contrainte={projet.contrainte} />
-                </div>
-                <Slider images={projet.images} />
-            </div>
-            <div>
-                <BtnBack />
-                <BtnGithub lien={projet.lien}/>
-            </div>
-            <Contact />
         </div>
     )
 }
 
 export default Projet
-

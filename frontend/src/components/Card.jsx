@@ -9,7 +9,7 @@ import AdminAcces from './AdminAcces'
 function Card({ id, title, minia, onEdit }) {
     return (
         <div className='card'>
-            <Link to={`/projet/${id}`}>
+            <Link to={`/projets/${id}`}>
                 <img src={minia} alt={title} />
                 <h2 className='cardTitle'>{title}</h2>
             </Link>

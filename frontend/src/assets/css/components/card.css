@@ -1,16 +1,30 @@
 .card {
-    position: relative;
+    filter: drop-shadow(0 0 4px rgb(35, 14, 14));
     display: flex;
     flex-direction: column;
+    height: 350px;
+    border-radius: 55%;
+}
+
+.card img {
+    border-radius: 50px;
+    height: 100%;
+    width: 100%;
+    object-fit:cover;
 }
 
 .card a {
+    
     text-decoration: none;
+    height: 100%;
 }
 
 .cardTitle {
-    text-align: center;
+    position: relative;
+    font-size: 3rem;
     padding: 15px;
+    padding-left: 30px;
+    bottom: 110px;
 }
 
 .card .trash {

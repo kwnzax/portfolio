@@ -1,4 +1,14 @@
+.portfolioPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
+.portfolioPage section {
+    width: 100%;
+    max-width: 1300px;
+}
 
 .title h1{
     font-size: 8rem;
@@ -11,10 +21,10 @@
 
 .cardContainer {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-column-gap: 30px;
     grid-row-gap: 30px;
     width: 100%;
-    padding: 40px;
+    padding: 40px 0;
     box-sizing: border-box;
 }

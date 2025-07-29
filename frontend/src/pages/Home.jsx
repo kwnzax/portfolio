@@ -32,7 +32,7 @@ function Home() {
       return;
     }
     const data = await res.json();
-    setProjets(data);
+    setProjets(data.slice(-6).reverse());
   };
 
   const fetchTools = async () => {
@@ -71,6 +71,7 @@ function Home() {
   }, [location]);
 
   return (
+    <div className='page'>
     <div className='home'>
       <section className='homeIntro'>
         <div className='textIntro'>
@@ -79,7 +80,7 @@ function Home() {
         </div>
         <div className='socialsIntro'><Socials /></div>
       </section>
-      <section>
+      <section className='homePortfolio'>
         <div className='title'>
           <h2>Portfolio</h2>
           <AdminAcces>
@@ -90,8 +91,8 @@ function Home() {
         <div className='miniCardContainer'>
           {projets.map((projet) => (
             <MiniCard
-              key={projet.id}
-              id={projet.id}
+              key={projet._id}
+              id={projet._id}
               title={projet.title}
               minia={projet.minia}
               tags={projet.tags}
@@ -122,7 +123,7 @@ function Home() {
       <section className='homeAbout' id='about'>
         <About />
       </section>
-      <section>
+      <section className='homeSkills'>
         <div className='title'>
           <h2>Skills</h2>
           <AdminAcces>
@@ -145,7 +146,7 @@ function Home() {
       <section>
         <Contact />
       </section>
-
+    </div>
     </div>
   );
 }

@@ -1,0 +1,14 @@
+.btnBack {
+    display: flex;
+    gap: 10px;
+    border: solid 0.1px #38040e;
+    background-color: #bc1620;
+    font-size: 1.1rem;
+    padding: 14px 27px;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.btnBack:hover {
+    background-color: #9E0B28;
+}

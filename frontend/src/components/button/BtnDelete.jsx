@@ -28,7 +28,7 @@ function BtnDelete({ id, type, onDelete }) {
     };
 
     return (
-        <button className='admin trash' onClick={handleDelete}>
+        <button className='trash' onClick={handleDelete} alt='delete'>
             <FontAwesomeIcon icon={faTrashCan} size="xl" />
         </button>
     )

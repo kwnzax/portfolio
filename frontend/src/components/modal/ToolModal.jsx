@@ -54,15 +54,21 @@ function ToolModal({ isOpen, onClose, onSuccess }) {
     <div className="modalBackground">
       <div className="modal" ref={modalRef}>
         <form onSubmit={handleSubmit} className="modalContent">
-          <h2>Ajouter un outil</h2>
+          <h2>Nouvel outil</h2>
 
           <input
+            id="logo"
             name="logo"
             type="file"
             accept="image/*"
             onChange={(e) => setLogoFile(e.target.files[0])}
             required
+            hidden
           />
+
+          <label htmlFor="logo" className="fileBtn">
+            Ajouter un logo
+          </label>
 
           <input
             name="name"

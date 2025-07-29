@@ -15,7 +15,7 @@ function ProjetModal({ isOpen, onClose, onSuccess, mode = "add", projet = null }
       setTitle(projet.title || "");
       setDescription(projet.description || "");
       setContrainte(projet.contrainte || "");
-      setTags(projet.tags || "");
+      setTags(Array.isArray(projet.tags) ? projet.tags.join(", ") : (projet.tags || ""));
       setCodeGithub(projet.codeGithub || "");
     } else if (mode === "add") {
       setTitle("");
@@ -59,7 +59,7 @@ function ProjetModal({ isOpen, onClose, onSuccess, mode = "add", projet = null }
     formData.append("title", title);
     formData.append("description", description);
     formData.append("contrainte", contrainte);
-    formData.append("tags", tags);
+    formData.append("tags", JSON.stringify(tags.split(",").map(tag => tag.trim())));
     formData.append("codeGithub", codeGithub);
 
     const url = mode === "edit"
@@ -94,14 +94,48 @@ function ProjetModal({ isOpen, onClose, onSuccess, mode = "add", projet = null }
     <div className="modalBackground">
       <div className="modal" ref={modalRef}>
         <form onSubmit={handleSubmit} className="modalContent">
-          <h2>{mode === "edit" ? "Modifier un projet" : "Ajouter un projet"}</h2>
+          <h2>{mode === "edit" ? "Modifier projet" : "Ajouter un projet"}</h2>
 
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setMinia(e.target.files[0])}
-            {...(mode === "add" ? { required: true } : {})}
-          />
+          <div className="addImgBtn">
+            <input
+              id="minia"
+              type="file"
+              name="minia"
+              accept="image/*"
+              onChange={(e) => setMinia(e.target.files[0])}
+              {...(mode === "add" ? { required: true } : {})}
+              hidden
+            />
+            <label htmlFor="minia" className="fileBtn">
+              Ajouter une minia
+            </label>
+
+            <input
+              id="images"
+              type="file"
+              name="images"
+              accept="image/*"
+              multiple
+              onChange={(e) => setImages(Array.from(e.target.files).slice(0, 4))}
+              {...(mode === "add" ? { required: true } : {})}
+              hidden
+            />
+            <label htmlFor="images" className="fileBtn">
+              Ajouter des images
+            </label>
+          </div>
+
+          <div className="previewContainer">
+            {minia && <img src={URL.createObjectURL(minia)} alt="Minia preview" className="preview" />}
+
+            {images.length > 0 && (
+              <div className="imagePreviewContainer">
+                {images.map((img, i) => (
+                  <img key={i} src={URL.createObjectURL(img)} alt={`Preview ${i}`} className="preview" />
+                ))}
+              </div>
+            )}
+          </div>
 
           <input
             type="text"
@@ -109,14 +143,6 @@ function ProjetModal({ isOpen, onClose, onSuccess, mode = "add", projet = null }
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
-          />
-
-          <input
-            type="file"
-            accept="image/*"
-            multiple
-            onChange={(e) => setImages(Array.from(e.target.files).slice(0, 4))}
-            {...(mode === "add" ? { required: true } : {})}
           />
 
           <textarea

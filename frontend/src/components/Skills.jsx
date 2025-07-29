@@ -12,9 +12,9 @@ function Skills({ id, logo, name, level }) {
 
     return (
         <div className="skillsCard">
-            <img src={logo} alt={name} className="skillsLogo" />
+            <img src={logo} alt={'logo'+ name} className="skillsLogo" />
             <div className='skillsContent'>
-                <h4>{name}</h4>
+                <h3>{name}</h3>
                 <p>Niveau de maitrise</p>
                 <div className='skillsLvl'>
                     <div className="progressBar">

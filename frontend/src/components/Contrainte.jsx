@@ -1,6 +1,6 @@
 function Contrainte({contrainte}) {
     return (
-        <div>
+        <div className='projetContrainte'>
             <h2>Difficultés</h2>
             <p>{contrainte}</p>
         </div>

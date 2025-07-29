@@ -1,0 +1,8 @@
+.btnGithub button{
+    border: solid 0.1px #38040e;
+    background: linear-gradient(to right, #400A0F, #BD2630);
+    font-size: 1.2rem;
+    padding: 14px 27px;
+    border-radius: 25px;
+    cursor: pointer;
+}

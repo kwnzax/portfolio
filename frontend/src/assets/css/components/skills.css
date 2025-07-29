@@ -23,10 +23,9 @@
 .skillsContent {
   width: 55%;
   padding: 0 15px;
-  justify-content: center;
 }
 
-.skillsContent h4 {
+.skillsContent h3 {
   margin-bottom: 20px;
   font-size: 1.4rem;
 }
