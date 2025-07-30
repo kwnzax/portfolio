@@ -1,7 +1,7 @@
 function Description({minia, description}) {
     return (
         <div className='projetMinia'>
-            <div>
+            <div className="projetMiniaImg">
                 <img src={minia}/>
             </div>
             <div className="projetDescription">

@@ -25,7 +25,7 @@ const processLogo = async (req, res, next) => {
         const fileName = name + Date.now() + "." + extension
 
         const buffer = await sharp(req.file.buffer)
-            .resize({ height: 200 })
+            .resize({ height: 500 })
             .toFormat("webp")
             .toBuffer();
 
@@ -59,7 +59,7 @@ const processImages = async (req, res, next) => {
 
                 const buffer = await sharp(file.buffer)
                     .resize({
-                        height: 595,
+                        height: 700,
                         fit: sharp.fit.outside,
                         position: sharp.strategy.entropy,
                     })
@@ -80,7 +80,7 @@ const processImages = async (req, res, next) => {
             const fileName = name + Date.now() + "." + extension
 
             const buffer = await sharp(minia.buffer)
-                .resize({ height: 400, fit: sharp.fit.outside })
+                .resize({ height: 700, fit: sharp.fit.outside })
                 .toFormat("webp")
                 .toBuffer();
 

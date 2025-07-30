@@ -24,6 +24,11 @@ h2 {
     align-items: end;
 }
 
+.homeIntro span {
+    font-style: italic;
+    color:#a88b8e
+}
+
 .homeIntro p {
     width: 70%;
     font-size: 1.6rem;
@@ -125,7 +130,5 @@ h2 {
     grid-column-gap: 30px;
     grid-row-gap: 30px;
     width: 100%;
-    padding: 40px;
+    padding: 40px 0;
 }
-
-/************ section contact **********/

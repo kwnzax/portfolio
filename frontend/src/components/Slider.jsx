@@ -1,34 +1,31 @@
-import { useState } from 'react';
+import { useRef } from "react";
+import "../assets/css/components/slider.css";
 
 function Slider({ images }) {
-    if (!images || images.length === 0) {
-        return null;}
+    const scrollRef = useRef(null);
 
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const totalSlide = images.length;
-
-    const nextSlide = () => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % totalSlide);
-    };
-
-    const prevSlide = () => {
-        setCurrentIndex((prevIndex) => (prevIndex - 1 + totalSlide) % totalSlide);
+    const scroll = (direction) => {
+        const container = scrollRef.current;
+        if (!container) return;
+        const scrollAmount = container.offsetWidth * 0.25;
+        container.scrollBy({ left: direction === "right" ? scrollAmount : -scrollAmount, behavior: "smooth" });
     };
 
     return (
-        <div className="slider">
-            {totalSlide > 1 && (
-                <div className="sliderNavBtn">
-                    <button className="prevBtn" onClick={prevSlide}>‹</button>
-                    <button className="nextBtn" onClick={nextSlide}>›</button>
-                </div>
-            )}
+        <div className="galleryWrapper">
+            <button className="navBtnLeft" onClick={() => scroll("left")}>
+                ‹
+            </button>
 
-            <img
-                key={currentIndex}
-                src={images[currentIndex]}
-                alt={`Slide ${currentIndex + 1}`}
-            />
+            <div className="imageGrid" ref={scrollRef}>
+                {images.map((img, index) => (
+                    <img key={index} src={img} alt={`projet-${index}`} className="galleryImg" />
+                ))}
+            </div>
+
+            <button className="navBtnRight" onClick={() => scroll("right")}>
+                ›
+            </button>
         </div>
     );
 }

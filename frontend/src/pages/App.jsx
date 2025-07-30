@@ -7,6 +7,7 @@ import NotFound from './NotFound'
 import Projet from './Projet.jsx'
 
 function Layout() {
+
   return (
     <>
 

@@ -6,7 +6,6 @@
 }
 
 .portfolioPage section {
-    width: 100%;
     max-width: 1300px;
 }
 
@@ -21,7 +20,7 @@
 
 .cardContainer {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 33% 33% 33%;
     grid-column-gap: 30px;
     grid-row-gap: 30px;
     width: 100%;

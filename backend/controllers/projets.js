@@ -31,27 +31,68 @@ exports.getOneProjet = (req, res, next) => {
     .catch(error => res.status(404).json({ error }));
 }
 
-exports.modifyProjet = (req, res, next) => {
-  const projetObject = req.file ? {
-    ...JSON.parse(req.body.projet),
-    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-  } : { ...req.body };
 
-  if (projetObject.tags) {
-    projetObject.tags = typeof projetObject.tags === "string" ? JSON.parse(projetObject.tags) : projetObject.tags;
+exports.modifyProjet = (req, res, next) => {
+  const updatedProjet = { ...req.body };
+
+  if (req.processedMinia) {
+    updatedProjet.minia = `${req.protocol}://${req.get("host")}/images/${req.processedMinia}`;
   }
 
-  delete projetObject._userId;
+  if (req.processedImages && req.processedImages.length > 0) {
+    updatedProjet.images = req.processedImages.map(name =>
+      `${req.protocol}://${req.get("host")}/images/${name}`
+    );
+  }
+
+  if (updatedProjet.tags) {
+    try {
+      updatedProjet.tags = typeof updatedProjet.tags === "string"
+        ? JSON.parse(updatedProjet.tags)
+        : updatedProjet.tags;
+    } catch (e) {
+      return res.status(400).json({ error: "Mauvais format pour les tags" });
+    }
+  }
+
+  delete updatedProjet._id;
+
   Projet.findOne({ _id: req.params.id })
     .then((projet) => {
-      Projet.updateOne({ _id: req.params.id }, { ...projetObject, _id: req.params.id })
-        .then(() => res.status(200).json({ message: 'Projet modifié!' }))
-        .catch(error => res.status(401).json({ error }));
+      if (!projet) {
+        return res.status(404).json({ error: "Projet non trouvé" });
+      }
+
+      if (req.processedMinia && projet.minia) {
+        const oldMiniaFilename = projet.minia.split("/images/")[1];
+        if (oldMiniaFilename) {
+          fs.unlink(`images/${oldMiniaFilename}`, (err) => {
+            if (err) console.error("Erreur suppression ancienne minia :", err);
+          });
+        }
+      }
+
+      if (req.processedImages && projet.images && Array.isArray(projet.images)) {
+        projet.images.forEach((imgUrl) => {
+          const filename = imgUrl.split("/images/")[1];
+          if (filename) {
+            fs.unlink(`images/${filename}`, (err) => {
+              if (err) console.error("Erreur suppression ancienne image :", err);
+            });
+          }
+        });
+      }
+
+      Projet.updateOne({ _id: req.params.id }, { ...updatedProjet, _id: req.params.id })
+        .then(() => res.status(200).json({ message: "Projet modifié et images nettoyées !" }))
+        .catch((error) => res.status(400).json({ error }));
     })
     .catch((error) => {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({ error });
     });
 };
+
+
 
 exports.deleteProjet = (req, res, next) => {
   Projet.findOne({ _id: req.params.id })

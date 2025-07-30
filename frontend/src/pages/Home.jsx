@@ -76,7 +76,7 @@ function Home() {
       <section className='homeIntro'>
         <div className='textIntro'>
           <h1>Kwnzax</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          <p>« Any fool can write code that a computer can understand. Good programmers write code that humans can understand. » — <span>Martin Fowler</span></p>
         </div>
         <div className='socialsIntro'><Socials /></div>
       </section>
