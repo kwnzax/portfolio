@@ -19,10 +19,12 @@ nav {
     gap: 45px;
 }
 
+
+
 .navBar ul {
-        display: flex;
-        flex-direction: row;
-        gap: 45px;
+    display: flex;
+    flex-direction: row;
+    gap: 45px;
 }
 
 .navBar a {
@@ -41,12 +43,17 @@ nav {
 }
 
 @media (max-width: 768px) {
+    .navBtn .btnContact {
+        display: none;
+    }
+
     .nav {
         font-size: 1rem;
+        flex-direction: column;
     }
 
     .logoKwnzax {
-        height: 35px;
+        height: 5px;
     }
 
     .navBar ul {
