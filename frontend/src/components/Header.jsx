@@ -1,5 +1,5 @@
 import '../assets/css/components/header.css'
-import logo from '../assets/images/logo.svg'
+import logo from '../assets/images/Logo.svg'
 import Nav from './Nav'
 import BtnContact from './button/BtnContact'
 
