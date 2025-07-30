@@ -19,8 +19,6 @@ nav {
     gap: 45px;
 }
 
-
-
 .navBar ul {
         display: flex;
         flex-direction: row;
@@ -43,7 +41,15 @@ nav {
 }
 
 @media (max-width: 768px) {
+    .nav {
+        font-size: 1rem;
+    }
+
     .logoKwnzax {
-        height: 30px;
+        height: 35px;
+    }
+
+    .navBar ul {
+        gap: 25px;
     }
 }
