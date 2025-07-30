@@ -19,8 +19,6 @@ nav {
     gap: 45px;
 }
 
-
-
 .navBar ul {
     display: flex;
     flex-direction: row;
@@ -63,5 +61,6 @@ nav {
     .navBar a:hover {
         border: none;
         background: none;
+        font-size: 1em;
     }
 }
