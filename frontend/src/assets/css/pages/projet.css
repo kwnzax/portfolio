@@ -133,6 +133,8 @@
 @media (max-width: 768px) {
     .projetTitle {
         flex-direction: column;
+        align-items: baseline;
+        justify-content: baseline;
     }
 
     .projetDescription {
