@@ -140,6 +140,7 @@
     .projetDescription {
         padding: 5px;
         font-size: 1rem;
+        align-items: center;
     }
 
     .projetDescription h2 {
