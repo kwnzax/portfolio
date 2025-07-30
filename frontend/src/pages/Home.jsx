@@ -27,7 +27,7 @@ function Home() {
   const close = () => setOpenModal(null);
 
   const fetchProjets = async () => {
-    const res = await fetch("http://localhost:3000/api/projets");
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projets`);
     if (!res.ok) {
       console.error("Erreur fetch projets");
       return;
@@ -37,7 +37,7 @@ function Home() {
   };
 
   const fetchTools = async () => {
-    const res = await fetch("http://localhost:3000/api/tools");
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/tools`);
     if (!res.ok) {
       console.error("Erreur fetch tools");
       return;
@@ -47,7 +47,7 @@ function Home() {
   };
 
   const fetchSkills = async () => {
-    const res = await fetch("http://localhost:3000/api/skills");
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/skills`);
     if (!res.ok) {
       console.error("Erreur fetch skills");
       return;

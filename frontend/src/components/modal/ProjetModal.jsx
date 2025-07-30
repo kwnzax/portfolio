@@ -63,8 +63,8 @@ function ProjetModal({ isOpen, onClose, onSuccess, mode = "add", projet = null }
     formData.append("codeGithub", codeGithub);
 
     const url = mode === "edit"
-      ? `http://localhost:3000/api/projets/${projet._id}`
-      : `http://localhost:3000/api/projets`;
+      ? `${import.meta.env.VITE_API_URL}/api/projets/${projet._id}`
+      : `${import.meta.env.VITE_API_URL}/api/projets`;
 
     const method = mode === "edit" ? "PUT" : "POST";
 

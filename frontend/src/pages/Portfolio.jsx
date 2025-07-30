@@ -15,7 +15,7 @@ function Portfolio() {
     const close = () => setOpenModal(null);
 
     const fetchProjets = async () => {
-        const res = await fetch("http://localhost:3000/api/projets");
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projets`);
         if (!res.ok) {
             console.error("Erreur fetch tools");
             return;

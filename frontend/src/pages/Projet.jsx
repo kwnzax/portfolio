@@ -28,7 +28,7 @@ function Projet() {
     };
 
     useEffect(() => {
-        fetch(`http://localhost:3000/api/projets/${id}`)
+        fetch(`${import.meta.env.VITE_API_URL}/api/projets/${id}`)
             .then((res) => res.json())
             .then((data) => setProjet(data))
             .catch(() => navigate("/"));
