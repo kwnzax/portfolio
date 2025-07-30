@@ -48,3 +48,11 @@
 .loginBtn button:hover {
     text-decoration: underline;
 }
+
+@media (max-width: 768px) {
+    .footer {
+        flex-direction: column;
+        justify-content: baseline;
+        align-items: center;
+    }
+}

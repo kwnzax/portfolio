@@ -43,7 +43,7 @@ nav {
 }
 
 @media (max-width: 768px) {
-    .navBtn .btnContact {
-        display: none;
+    .logoKwnzax {
+        height: 30px;
     }
 }

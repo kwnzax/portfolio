@@ -5,3 +5,10 @@
     align-items: center;
     gap: 30px;
 }
+
+@media (max-width: 768px) {
+    .contact h2 {
+        text-align: center;
+        padding: 0 5px;
+    }
+}
