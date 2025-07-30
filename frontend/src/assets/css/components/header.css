@@ -59,4 +59,9 @@ nav {
     .navBar ul {
         gap: 25px;
     }
+
+    .navBar a:hover {
+        border: none;
+        background: none;
+    }
 }

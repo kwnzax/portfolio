@@ -100,6 +100,7 @@
 
     .projet {
         margin: 15px;
+        width: 100%;
     }
     
     .projetId {
@@ -128,3 +129,4 @@
         width: 90%;
     }
 }
+
