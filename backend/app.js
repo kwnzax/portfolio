@@ -18,12 +18,6 @@ mongoose.connect(`mongodb+srv://${process.env.adminData}:${process.env.adminData
 
 app.use(express.json());
 
-app.use(cors({
-    origin: "http://localhost:5173", 
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true 
-}));
-
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
