@@ -32,7 +32,7 @@ function SkillModal({ isOpen, onClose, onSuccess }) {
     formData.append("logo", logoFile);
 
     try {
-      const res = await fetch("http://localhost:3000/api/skills", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/skills`, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${token}`

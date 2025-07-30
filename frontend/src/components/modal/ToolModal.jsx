@@ -30,7 +30,7 @@ function ToolModal({ isOpen, onClose, onSuccess }) {
     formData.append("name", name);
 
     try {
-      const res = await fetch("http://localhost:3000/api/tools", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/tools`, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${token}`
