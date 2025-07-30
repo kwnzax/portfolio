@@ -125,7 +125,7 @@ function Home() {
             ))}
           </div>
         </section>
-        <section className='homeAbout' id='about'>
+        <section className='homeAbout' >
           <About />
         </section>
         <section className='homeSkills'>

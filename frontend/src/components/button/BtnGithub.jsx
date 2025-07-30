@@ -5,7 +5,7 @@ import '../../assets/css/components/button/btnGithub.css'
 
 function BtnGithub ({codeGithub}) {
     return (
-        <Link className="btnGithub" to={codeGithub}>
+        <Link className="btnGithub" to={codeGithub} target="_blank">
             <button >Repo Github <FontAwesomeIcon icon={faLink} /></button>
         </Link>
     )
