@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 import { useState, useEffect } from "react";
-import '../assets/css/pages/Home.css'
+import '../assets/css/pages/home.css'
 
 import MiniCard from '../components/MiniCard.jsx'
 import Tool from '../components/Tool.jsx'
