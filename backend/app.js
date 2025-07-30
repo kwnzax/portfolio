@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const cors = require("cors");
 const userRoutes = require('./routes/admin');
 const path = require('path');
-const projetsRoutes = require('./routes/Projets');
+const projetsRoutes = require('./routes/projets');
 const toolsRoutes = require('./routes/tools');
 const skillsRoutes = require('./routes/skills');
 
