@@ -137,3 +137,87 @@ textarea {
     padding: 14px 27px;
 }
 
+@media (max-width: 1024px) {
+    section {
+        margin-top: 100px;
+        margin-bottom: 100px;
+        padding: 0 20px;
+    }
+
+    .modal {
+        width: 60%;
+        padding: 40px;
+    }
+
+    .modalContent h2 {
+        font-size: 1.8rem;
+    }
+
+    .fileBtn {
+        font-size: 1rem;
+        padding: 12px 8px;
+    }
+
+    .modalBtn button {
+        font-size: 1rem;
+        padding: 12px 22px;
+    }
+}
+
+@media (max-width: 768px) {
+    section {
+        margin-top: 60px;
+        padding: 0 5px;
+        margin-bottom: 50px;
+    }
+
+    .modal {
+        width: 80%;
+        padding: 30px;
+    }
+
+    .modalContent {
+        gap: 20px;
+    }
+
+    .modalContent input,
+    textarea {
+        width: 100%;
+        height: 40px;
+    }
+
+    .addImgBtn,
+    .previewContainer,
+    .imagePreviewContainer,
+    .modalBtn {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .preview {
+        max-width: 80px;
+        max-height: 80px;
+    }
+
+    .modalContent h2 {
+        font-size: 1.6rem;
+    }
+
+    .fileBtn {
+        font-size: 1rem;
+        padding: 10px 8px;
+        text-align: center;
+    }
+
+    .modalBtn button {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+
+    .title {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+}

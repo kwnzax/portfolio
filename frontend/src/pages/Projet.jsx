@@ -71,7 +71,7 @@ function Projet() {
                     </div>
                     <div className='projetBtn'>
                         <BtnBack />
-                        <BtnGithub lien={projet.lien} />
+                        <BtnGithub codeGithub={projet.codeGithub} />
                     </div>
                 </section>
                 <section >

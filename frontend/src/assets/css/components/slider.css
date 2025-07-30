@@ -1,55 +1,63 @@
 .galleryWrapper {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    margin: 40px 0;
-  }
-  
-  .imageGrid {
-    display: flex;
-    gap: 16px;
-    border-radius: 25px;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    scrollbar-width: none; 
-    -ms-overflow-style: none; 
-  }
-  
-  .imageGrid::-webkit-scrollbar {
-    display: none; 
-  }
-  
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin: 40px 0;
+}
+
+.imageGrid {
+  display: flex;
+  gap: 16px;
+  border-radius: 25px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.imageGrid::-webkit-scrollbar {
+  display: none;
+}
+
+.galleryImg {
+  flex: 0 0 auto;
+  width: 60%;
+  height: 500px;
+  object-fit: cover;
+  border-radius: 25px;
+  transition: transform 0.4s ease;
+}
+
+.navBtnLeft,
+.navBtnRight {
+  position: absolute;
+  top: 50%;
+  background-color: rgba(146, 20, 20);
+  transform: translateY(-50%);
+  border: none;
+  font-size: 2rem;
+  padding: 2px 15px;
+  cursor: pointer;
+  z-index: 10;
+  border-radius: 55%;
+  transition: background 0.3s;
+}
+
+.navBtnRight:hover,
+.navBtnLeft:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.navBtnLeft {
+  left: 10px;
+}
+
+.navBtnRight {
+  right: 10px;
+}
+
+@media (max-width: 1024px) {
   .galleryImg {
-    flex: 0 0 auto;
-    width: 60%;
-    height: 500px;
-    object-fit: cover;
-    border-radius: 25px;
-    transition: transform 0.4s ease;
+    width: 100%;
   }
-  
-  .navBtnLeft, .navBtnRight {
-    position: absolute;
-    top: 50%;
-    background-color: rgba(146, 20, 20);
-    transform: translateY(-50%);
-    border: none;
-    font-size: 2rem;
-    padding: 2px 15px;
-    cursor: pointer;
-    z-index: 10;
-    border-radius: 55%;
-    transition: background 0.3s;
-  }
-  
-  .navBtnRight:hover, .navBtnLeft:hover {
-    background-color: rgba(0,0,0,0.8);
-  }
-  
-  .navBtnLeft {
-    left: 10px;
-  }
-  
-  .navBtnRight {
-    right: 10px;
-  }
+}

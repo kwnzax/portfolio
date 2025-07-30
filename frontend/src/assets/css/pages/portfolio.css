@@ -27,3 +27,28 @@
     padding: 40px 0;
     box-sizing: border-box;
 }
+
+@media (max-width: 1024px) {    
+    .title h1{
+        font-size: 6rem;
+    }
+
+    .cardContainer {
+        grid-template-columns: 1fr 1fr ;
+    }
+}
+
+@media (max-width: 768px) {
+    .title h1{
+        font-size: 4rem;
+        padding-left: 0;
+    }
+
+    .portfolio .title {
+        margin-bottom: 50px;
+    }
+
+    .cardContainer {
+        grid-template-columns: 1fr;
+    }
+}

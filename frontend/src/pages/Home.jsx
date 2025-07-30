@@ -13,6 +13,7 @@ import ToolModal from '../components/modal/ToolModal.jsx'
 import SkillModal from '../components/modal/SkillModal.jsx'
 import ProjetModal from '../components/modal/ProjetModal.jsx'
 import AdminAcces from '../components/AdminAcces.jsx';
+import BtnContact from '../components/button/BtnContact.jsx';
 
 
 function Home() {
@@ -72,81 +73,85 @@ function Home() {
 
   return (
     <div className='page'>
-    <div className='home'>
-      <section className='homeIntro'>
-        <div className='textIntro'>
-          <h1>Kwnzax</h1>
-          <p>« Any fool can write code that a computer can understand. Good programmers write code that humans can understand. » — <span>Martin Fowler</span></p>
-        </div>
-        <div className='socialsIntro'><Socials /></div>
-      </section>
-      <section className='homePortfolio'>
-        <div className='title'>
-          <h2>Portfolio</h2>
-          <AdminAcces>
-            <BtnAdd onClick={() => open("projet")} />
-          </AdminAcces>
-        </div>
-        <ProjetModal isOpen={openModal === "projet"} onClose={close} onSuccess={() => { fetchProjets() }} />
-        <div className='miniCardContainer'>
-          {projets.map((projet) => (
-            <MiniCard
-              key={projet._id}
-              id={projet._id}
-              title={projet.title}
-              minia={projet.minia}
-              tags={projet.tags}
-            />
-          ))}
-        </div>
-        <Link to="/portfolio" className='showMore'>Afficher plus</Link>
-      </section>
-      <section className='homeOutils'>
-        <div className='title'>
-          <h2>Outils</h2>
-          <AdminAcces>
-            <BtnAdd onClick={() => open("tool")} />
-          </AdminAcces>
-        </div>
-        <ToolModal isOpen={openModal === "tool"} onClose={close} onSuccess={() => { fetchTools() }} />
-        <div className='outilContainer'>
-          {tools.map((tool) => (
-            <Tool
-              key={tool._id}
-              id={tool._id}
-              name={tool.name}
-              logo={tool.logo}
-            />
-          ))}
-        </div>
-      </section>
-      <section className='homeAbout' id='about'>
-        <About />
-      </section>
-      <section className='homeSkills'>
-        <div className='title'>
-          <h2>Skills</h2>
-          <AdminAcces>
-            <BtnAdd onClick={() => open("skill")} />
-          </AdminAcces>
-        </div>
-        <SkillModal isOpen={openModal === "skill"} onClose={close} onSuccess={() => { fetchSkills() }} />
-        <div className='skillsContainer'>
-          {skills.map((skills) => (
-            <Skills
-              key={skills._id}
-              id={skills._id}
-              name={skills.name}
-              logo={skills.logo}
-              level={skills.level}
-            />
-          ))}
-        </div>
-      </section>
-      <section>
-        <Contact />
-      </section>
-    </div>
+      <div className='home'>
+        <section className='homeIntro'>
+          <div className='textIntro'>
+            <h1>Kwnzax</h1>
+            <p>« Any fool can write code that a computer can understand. Good programmers write code that humans can understand. » — <span>Martin Fowler</span></p>
+          </div>
+          <div className='contactIntro'>
+            <BtnContact />
+            <div className='socialsIntro'>
+              <Socials /></div>
+          </div>
+        </section>
+        <section className='homePortfolio'>
+          <div className='title'>
+            <h2>Portfolio</h2>
+            <AdminAcces>
+              <BtnAdd onClick={() => open("projet")} />
+            </AdminAcces>
+          </div>
+          <ProjetModal isOpen={openModal === "projet"} onClose={close} onSuccess={() => { fetchProjets() }} />
+          <div className='miniCardContainer'>
+            {projets.map((projet) => (
+              <MiniCard
+                key={projet._id}
+                id={projet._id}
+                title={projet.title}
+                minia={projet.minia}
+                tags={projet.tags}
+              />
+            ))}
+          </div>
+          <Link to="/portfolio" className='showMore'>Afficher plus</Link>
+        </section>
+        <section className='homeOutils'>
+          <div className='title'>
+            <h2>Outils</h2>
+            <AdminAcces>
+              <BtnAdd onClick={() => open("tool")} />
+            </AdminAcces>
+          </div>
+          <ToolModal isOpen={openModal === "tool"} onClose={close} onSuccess={() => { fetchTools() }} />
+          <div className='outilContainer'>
+            {tools.map((tool) => (
+              <Tool
+                key={tool._id}
+                id={tool._id}
+                name={tool.name}
+                logo={tool.logo}
+              />
+            ))}
+          </div>
+        </section>
+        <section className='homeAbout' id='about'>
+          <About />
+        </section>
+        <section className='homeSkills'>
+          <div className='title'>
+            <h2>Skills</h2>
+            <AdminAcces>
+              <BtnAdd onClick={() => open("skill")} />
+            </AdminAcces>
+          </div>
+          <SkillModal isOpen={openModal === "skill"} onClose={close} onSuccess={() => { fetchSkills() }} />
+          <div className='skillsContainer'>
+            {skills.map((skills) => (
+              <Skills
+                key={skills._id}
+                id={skills._id}
+                name={skills.name}
+                logo={skills.logo}
+                level={skills.level}
+              />
+            ))}
+          </div>
+        </section>
+        <section>
+          <Contact />
+        </section>
+      </div>
     </div>
   );
 }

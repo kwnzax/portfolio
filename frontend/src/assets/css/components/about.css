@@ -10,7 +10,7 @@
     align-items: center;
 }
 
-.about h2 {
+.aboutText h2 {
     padding-left: 20px;
     font-size: 3.4rem;
 }
@@ -20,7 +20,7 @@
     padding: 30px;
 }
 
-.about p {
+.aboutText p {
     font-size: 1.3rem;
     padding: 20px;
 }
@@ -28,7 +28,48 @@
 .aboutAnim {
     background-color: rgba(35, 14, 14, 0.2);
     border-radius: 25px;
-    width: 55%;
+    width: 45%;
     height: 95%;
     margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    object-fit: contain;
+}
+
+@media (max-width: 1024px) {
+    .about h2 {
+        font-size: 2.4rem;
+    }
+
+    .aboutText {
+        padding: 40px 5px;
+        width: 50%;
+    }
+}
+
+@media (max-width: 768px) {
+    .about{
+        flex-direction: column;
+        height: 700px;
+        width: 100%;
+        gap: 0;
+    }
+
+    .aboutText {
+        width: 100%;
+    }
+
+    .about p {
+        padding: 30px;
+        padding-bottom: 0;
+    }
+
+    .aboutAnim {
+        width: 98%;
+        height: 50%;
+        margin-top: 20px;
+        padding-top: 55px;
+        display: flex;
+    }
 }

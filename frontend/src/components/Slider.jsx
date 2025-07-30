@@ -7,7 +7,7 @@ function Slider({ images }) {
     const scroll = (direction) => {
         const container = scrollRef.current;
         if (!container) return;
-        const scrollAmount = container.offsetWidth * 0.25;
+        const scrollAmount = container.offsetWidth * 1;
         container.scrollBy({ left: direction === "right" ? scrollAmount : -scrollAmount, behavior: "smooth" });
     };
 
