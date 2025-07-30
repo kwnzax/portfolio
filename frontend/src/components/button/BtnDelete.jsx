@@ -10,7 +10,7 @@ function BtnDelete({ id, type, onDelete }) {
         const token = localStorage.getItem("token");
 
         try {
-            const res = await fetch(`http://localhost:3000/api/${type}/${id}`, {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/${type}/${id}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${token}`,
