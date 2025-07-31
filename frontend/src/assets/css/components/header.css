@@ -40,6 +40,13 @@ nav {
     transition: 400ms ease;
 }
 
+.navBar a:active {
+    border: solid 1px #F2ECEC;
+    border-radius: 25px;
+    filter: drop-shadow(0 0 2px #F2ECEC);
+    background-color: #5A060E;
+}
+
 @media (max-width: 768px) {
     .navBtn .btnContact {
         display: none;
@@ -62,5 +69,10 @@ nav {
         border: none;
         background: none;
         font-size: 1em;
+    }
+
+    .navBar a:active {
+        border: none;
+        background: none;
     }
 }

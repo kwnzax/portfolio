@@ -7,7 +7,7 @@ function About() {
         <div className="about" id='about'>
             <div className='aboutText'>
                 <h2>À propos de moi</h2>
-                <p>Une soif d’apprentissage, une détermination dans l’épreuve et une curiosité audacieuse pour l’inconnu !<br /> Je m’appelle Kenza et je suis développeuse Web junior diplômée de Openclassrooms.</p>
+                <p>Une soif d’apprentissage, une détermination face à l’épreuve et une curiosité audacieuse pour l’inconnu !<br /> Je m’appelle Kenza et je suis développeuse Web junior diplômée de Openclassrooms.</p>
             </div>
             <div className='aboutAnim'>
                 <DotLottieReact
