@@ -22,9 +22,6 @@ const processLogo = async (req, res, next) => {
   try {
     const name = req.body.name.split(" ").join("_");
     const extension = MIME_TYPES[req.file.mimetype];
-    if (!extension) {
-      return res.status(400).json({ error: `Type de fichier non supporté : ${req.file.mimetype}` });
-    }
     const fileName = name + Date.now() + "." + extension;
 
     const buffer = await sharp(req.file.buffer)
@@ -58,9 +55,6 @@ const processImages = async (req, res, next) => {
 
       for (const file of req.files["images"]) {
         const extension = MIME_TYPES[file.mimetype];
-        if (!extension) {
-          return res.status(400).json({ error: `Type de fichier non supporté : ${file.mimetype}` });
-        }
         const fileName = name + Date.now() + "." + extension;
 
         const buffer = await sharp(file.buffer)
@@ -83,9 +77,6 @@ const processImages = async (req, res, next) => {
     if (req.files["minia"]) {
       const minia = req.files["minia"][0];
       const extension = MIME_TYPES[minia.mimetype];
-      if (!extension) {
-        return res.status(400).json({ error: `Type de fichier non supporté : ${minia.mimetype}` });
-      }
       const fileName = name + Date.now() + "." + extension;
 
       const buffer = await sharp(minia.buffer)
