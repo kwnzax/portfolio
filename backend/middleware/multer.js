@@ -1,5 +1,4 @@
 const multer = require("multer")
-const cloudinary = require('./cloudinary');
 const sharp = require("sharp")
 const fs = require("fs").promises
 
@@ -44,76 +43,60 @@ const processLogo = async (req, res, next) => {
 
 const processImages = async (req, res, next) => {
     if (!req.files || (!req.files["minia"] && !req.files["images"])) {
-      return next();
+        return next();
     }
-  
+
     try {
-      const projetObject = req.body;
-      const name = projetObject.title?.split(" ").join("_") || "image";
-      const cloudinaryImages = [];
+        const projetObject = req.body
+        const name = projetObject.title.split(" ").join("_")
+        const processedImages = [];
 
-      if (req.files["images"]) {
-        for (const file of req.files["images"]) {
-          const extension = MIME_TYPES[file.mimetype];
-  
-          const buffer = await sharp(file.buffer)
-            .resize({
-              height: 700,
-              fit: sharp.fit.outside,
-              position: sharp.strategy.entropy,
-            })
-            .toFormat("webp")
-            .toBuffer();
-  
-          const uploadResult = await cloudinary.uploader.upload_stream(
-            {
-              folder: "portfolio",
-              public_id: `${name}_${Date.now()}`
-            },
-            (error, result) => {
-              if (error) throw error;
-              cloudinaryImages.push(result.secure_url);
+        if (req.files["images"]) {
+
+            for (const file of req.files["images"]) {
+                const extension = MIME_TYPES[file.mimetype]
+                const fileName = name + Date.now() + "." + extension
+
+                const buffer = await sharp(file.buffer)
+                    .resize({
+                        height: 700,
+                        fit: sharp.fit.outside,
+                        position: sharp.strategy.entropy,
+                    })
+                    .toFormat("webp")
+                    .toBuffer()
+
+                const imagePath = `images/${fileName}`
+                await fs.writeFile(imagePath, buffer)
+
+                processedImages.push(fileName)
             }
-          );
-
-          const { Readable } = require("stream");
-          Readable.from(buffer).pipe(uploadResult);
-          await new Promise((resolve) => uploadResult.on("finish", resolve));
         }
-      }
 
-      let cloudinaryMinia = "";
-      if (req.files["minia"]) {
-        const minia = req.files["minia"][0];
-        const buffer = await sharp(minia.buffer)
-          .resize({ height: 700, fit: sharp.fit.outside })
-          .toFormat("webp")
-          .toBuffer();
-  
-        const uploadResult = await cloudinary.uploader.upload_stream(
-          {
-            folder: "portfolio",
-            public_id: `${name}_minia_${Date.now()}`
-          },
-          (error, result) => {
-            if (error) throw error;
-            cloudinaryMinia = result.secure_url;
-          }
-        );
-  
-        const { Readable } = require("stream");
-        Readable.from(buffer).pipe(uploadResult);
-        await new Promise((resolve) => uploadResult.on("finish", resolve));
-      }
-  
-      req.cloudinaryImages = cloudinaryImages;
-      req.cloudinaryMinia = cloudinaryMinia;
-  
-      next();
+        let miniaFileName = "";
+        if (req.files["minia"]) {
+            const minia = req.files["minia"][0];
+            const extension = MIME_TYPES[minia.mimetype];
+            const fileName = name + Date.now() + "." + extension
+
+            const buffer = await sharp(minia.buffer)
+                .resize({ height: 700, fit: sharp.fit.outside })
+                .toFormat("webp")
+                .toBuffer();
+
+            const imagePath = `images/${fileName}`;
+            await fs.writeFile(imagePath, buffer);
+            miniaFileName = fileName;
+        }
+
+        req.processedImages = processedImages;
+        req.processedMinia = miniaFileName;
+
+        next()
     } catch (error) {
-      console.error("Erreur traitement des images Cloudinary :", error);
-      res.status(500).json({ error: "Erreur serveur lors du traitement des images." });
+        console.error("Error processing image:", error)
+        res.status(500).json({ error: "Internal server error." })
     }
-  };
+}
 
 module.exports = { uploadProjet, processImages, uploadLogo, processLogo };

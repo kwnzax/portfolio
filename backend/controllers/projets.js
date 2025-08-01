@@ -1,57 +1,23 @@
 const Projet = require('../models/Projet');
-const cloudinary = require('../middleware/cloudinary');
 const fs = require('fs');
 
-function getCloudinaryPublicId(url) {
+exports.createProjet = (req, res, next) => {
+  const projetObject = { ...req.body };
+  delete projetObject._id;
 
-  const parts = url.split('/');
-  const file = parts[parts.length - 1];
-  const [publicId] = file.split('.');
-  const folder = parts[parts.length - 2];
-  return `${folder}/${publicId}`;
+  const tags = projetObject.tags;
+  const tagsArray = typeof tags === "string" ? JSON.parse(tags) : tags;
+
+  const projet = new Projet({
+    ...projetObject,
+    tags: tagsArray,
+    minia: `${req.protocol}://${req.get("host")}/images/${req.processedMinia}`,
+    images: req.processedImages.map(name => `${req.protocol}://${req.get("host")}/images/${name}`),
+  });
+  projet.save()
+    .then(() => res.status(201).json({ message: 'Projet enregistré !' }))
+    .catch(error => res.status(400).json({ error }));
 }
-
-exports.createProjet = async (req, res, next) => {
-  try {
-    const projetObject = { ...req.body };
-    delete projetObject._id;
-
-    const tags = projetObject.tags;
-    const tagsArray = typeof tags === "string" ? JSON.parse(tags) : tags;
-
-    const miniaPath = `images/${req.processedMinia}`;
-    const miniaUpload = await cloudinary.uploader.upload(miniaPath, {
-      folder: 'portfolio'
-    });
-    const miniaUrl = miniaUpload.secure_url;
-
-    fs.unlinkSync(miniaPath);
-
-    const imageUrls = [];
-    for (const name of req.processedImages) {
-      const localPath = `images/${name}`;
-      const uploadResult = await cloudinary.uploader.upload(localPath, {
-        folder: 'portfolio'
-      });
-      imageUrls.push(uploadResult.secure_url);
-      fs.unlinkSync(localPath);
-    }
-
-    const projet = new Projet({
-      ...projetObject,
-      tags: tagsArray,
-      minia: req.cloudinaryMinia,
-      images: req.cloudinaryImages,
-    });
-
-    await projet.save();
-    res.status(201).json({ message: 'Projet enregistré !' });
-
-  } catch (error) {
-    console.error(error);
-    res.status(400).json({ error });
-  }
-};
 
 exports.getAllProjets = (req, res, next) => {
   Projet.find()
@@ -66,68 +32,98 @@ exports.getOneProjet = (req, res, next) => {
 }
 
 
-exports.modifyProjet = async (req, res, next) => {
+exports.modifyProjet = (req, res, next) => {
   const updatedProjet = { ...req.body };
 
-  try {
-    if (updatedProjet.tags) {
+  if (req.processedMinia) {
+    updatedProjet.minia = `${req.protocol}://${req.get("host")}/images/${req.processedMinia}`;
+  }
+
+  if (req.processedImages && req.processedImages.length > 0) {
+    updatedProjet.images = req.processedImages.map(name =>
+      `${req.protocol}://${req.get("host")}/images/${name}`
+    );
+  }
+
+  if (updatedProjet.tags) {
+    try {
       updatedProjet.tags = typeof updatedProjet.tags === "string"
         ? JSON.parse(updatedProjet.tags)
         : updatedProjet.tags;
+    } catch (e) {
+      return res.status(400).json({ error: "Mauvais format pour les tags" });
     }
+  }
 
-    delete updatedProjet._id;
+  delete updatedProjet._id;
 
-    const projet = await Projet.findOne({ _id: req.params.id });
-    if (!projet) return res.status(404).json({ error: "Projet non trouvé" });
-
-    if (req.cloudinaryMinia) {
-      if (projet.minia) {
-        const publicId = getCloudinaryPublicId(projet.minia);
-        await cloudinary.uploader.destroy(publicId);
+  Projet.findOne({ _id: req.params.id })
+    .then((projet) => {
+      if (!projet) {
+        return res.status(404).json({ error: "Projet non trouvé" });
       }
-      updatedProjet.minia = req.cloudinaryMinia;
-    }
-    
-    if (req.cloudinaryImages && req.cloudinaryImages.length) {
-      if (Array.isArray(projet.images)) {
-        for (const oldUrl of projet.images) {
-          const publicId = getCloudinaryPublicId(oldUrl);
-          await cloudinary.uploader.destroy(publicId);
+
+      if (req.processedMinia && projet.minia) {
+        const oldMiniaFilename = projet.minia.split("/images/")[1];
+        if (oldMiniaFilename) {
+          fs.unlink(`images/${oldMiniaFilename}`, (err) => {
+            if (err) console.error("Erreur suppression ancienne minia :", err);
+          });
         }
       }
-      updatedProjet.images = req.cloudinaryImages;
-    }
 
-    await Projet.updateOne({ _id: req.params.id }, { ...updatedProjet, _id: req.params.id });
-    res.status(200).json({ message: "Projet modifié avec images Cloudinary !" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: error.message });
-  }
+      if (req.processedImages && projet.images && Array.isArray(projet.images)) {
+        projet.images.forEach((imgUrl) => {
+          const filename = imgUrl.split("/images/")[1];
+          if (filename) {
+            fs.unlink(`images/${filename}`, (err) => {
+              if (err) console.error("Erreur suppression ancienne image :", err);
+            });
+          }
+        });
+      }
+
+      Projet.updateOne({ _id: req.params.id }, { ...updatedProjet, _id: req.params.id })
+        .then(() => res.status(200).json({ message: "Projet modifié et images nettoyées !" }))
+        .catch((error) => res.status(400).json({ error }));
+    })
+    .catch((error) => {
+      res.status(500).json({ error });
+    });
 };
 
-exports.deleteProjet = async (req, res, next) => {
-  try {
-    const projet = await Projet.findOne({ _id: req.params.id });
-    if (!projet) return res.status(404).json({ error: "Projet non trouvé" });
 
-    if (projet.minia) {
-      const publicId = getCloudinaryPublicId(projet.minia);
-      await cloudinary.uploader.destroy(publicId);
-    }
 
-    if (Array.isArray(projet.images)) {
-      for (const imageUrl of projet.images) {
-        const publicId = getCloudinaryPublicId(imageUrl);
-        await cloudinary.uploader.destroy(publicId);
+exports.deleteProjet = (req, res, next) => {
+  Projet.findOne({ _id: req.params.id })
+    .then(projet => {
+      if (!projet) {
+        return res.status(404).json({ error: "Projet non trouvé" });
       }
-    }
 
-    await Projet.deleteOne({ _id: req.params.id });
-    res.status(200).json({ message: "Projet supprimé !" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: error.message });
-  }
+      const miniaFilename = projet.minia.split('/images/')[1];
+      if (miniaFilename) {
+        fs.unlink(`images/${miniaFilename}`, err => {
+          if (err) console.error("Erreur suppression minia :", err);
+        });
+      }
+
+      if (Array.isArray(projet.images)) {
+        projet.images.forEach(imageUrl => {
+          const filename = imageUrl.split('/images/')[1];
+          if (filename) {
+            fs.unlink(`images/${filename}`, err => {
+              if (err) console.error("Erreur suppression image :", err);
+            });
+          }
+        });
+      }
+
+      Projet.deleteOne({ _id: req.params.id })
+        .then(() => res.status(200).json({ message: "Projet supprimé !" }))
+        .catch(error => res.status(400).json({ error }));
+    })
+    .catch(error => {
+      res.status(500).json({ error: error.message });
+    });
 };
