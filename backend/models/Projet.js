@@ -5,6 +5,7 @@ const projetSchema = mongoose.Schema({
     title: { type: String, required: true },
     images: { type: [String], required: true },
     description: { type: String, required: true },
+    problematiques: { type: String, required: false},
     contrainte: { type: String, required: true },
     tags: {type: [String], required: true},
     codeGithub: {type: String, required: true}

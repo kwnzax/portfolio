@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import '../assets/css/pages/projet.css'
 import Tags from '../components/Tags'
 import Description from '../components/Description'
+import Problematiques from '../components/Problematiques'
 import Contrainte from '../components/Contrainte'
 import Slider from '../components/Slider'
 import BtnBack from "../components/button/BtnBack"
@@ -65,6 +66,7 @@ function Projet() {
                                 minia={projet.minia}
                                 description={projet.description}
                             />
+                            <Problematiques problematiques={projet.problematiques}/>
                             <Contrainte contrainte={projet.contrainte} />
                         </div>
                         <Slider images={projet.images} />

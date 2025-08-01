@@ -5,6 +5,7 @@ function ProjetModal({ isOpen, onClose, onSuccess, mode = "add", projet = null }
   const [images, setImages] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [problematiques, setProblematiques] = useState("");
   const [contrainte, setContrainte] = useState("");
   const [tags, setTags] = useState("");
   const [codeGithub, setCodeGithub] = useState("");
@@ -14,12 +15,14 @@ function ProjetModal({ isOpen, onClose, onSuccess, mode = "add", projet = null }
     if (mode === "edit" && projet) {
       setTitle(projet.title || "");
       setDescription(projet.description || "");
+      setProblematiques(projet.problematiques || "");
       setContrainte(projet.contrainte || "");
       setTags(Array.isArray(projet.tags) ? projet.tags.join(", ") : (projet.tags || ""));
       setCodeGithub(projet.codeGithub || "");
     } else if (mode === "add") {
       setTitle("");
       setDescription("");
+      setProblematiques("");
       setContrainte("");
       setTags("");
       setCodeGithub("");
@@ -59,6 +62,7 @@ function ProjetModal({ isOpen, onClose, onSuccess, mode = "add", projet = null }
     formData.append("title", title);
     formData.append("description", description);
     formData.append("contrainte", contrainte);
+    formData.append("problematiques", problematiques);
     formData.append("tags", JSON.stringify(tags.split(",").map(tag => tag.trim())));
     formData.append("codeGithub", codeGithub);
 
@@ -149,6 +153,14 @@ function ProjetModal({ isOpen, onClose, onSuccess, mode = "add", projet = null }
             placeholder="Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            required
+          />
+
+          <input
+            type="text"
+            placeholder="Problematiques"
+            value={problematiques}
+            onChange={(e) => setProblematiques(e.target.value)}
             required
           />
 
