@@ -11,9 +11,10 @@ exports.createProjet = (req, res, next) => {
   const projet = new Projet({
     ...projetObject,
     tags: tagsArray,
-    minia: `${req.protocol}://${req.get("host")}/images/${req.processedMinia}`,
-    images: req.processedImages.map(name => `${req.protocol}://${req.get("host")}/images/${name}`),
+    minia: req.processedMinia, 
+    images: req.processedImages, 
   });
+
   projet.save()
     .then(() => res.status(201).json({ message: 'Projet enregistré !' }))
     .catch(error => res.status(400).json({ error }));
@@ -36,13 +37,11 @@ exports.modifyProjet = (req, res, next) => {
   const updatedProjet = { ...req.body };
 
   if (req.processedMinia) {
-    updatedProjet.minia = `${req.protocol}://${req.get("host")}/images/${req.processedMinia}`;
+    updatedProjet.minia = req.processedMinia; 
   }
 
   if (req.processedImages && req.processedImages.length > 0) {
-    updatedProjet.images = req.processedImages.map(name =>
-      `${req.protocol}://${req.get("host")}/images/${name}`
-    );
+    updatedProjet.images = req.processedImages;
   }
 
   if (updatedProjet.tags) {
@@ -63,28 +62,8 @@ exports.modifyProjet = (req, res, next) => {
         return res.status(404).json({ error: "Projet non trouvé" });
       }
 
-      if (req.processedMinia && projet.minia) {
-        const oldMiniaFilename = projet.minia.split("/images/")[1];
-        if (oldMiniaFilename) {
-          fs.unlink(`images/${oldMiniaFilename}`, (err) => {
-            if (err) console.error("Erreur suppression ancienne minia :", err);
-          });
-        }
-      }
-
-      if (req.processedImages && projet.images && Array.isArray(projet.images)) {
-        projet.images.forEach((imgUrl) => {
-          const filename = imgUrl.split("/images/")[1];
-          if (filename) {
-            fs.unlink(`images/${filename}`, (err) => {
-              if (err) console.error("Erreur suppression ancienne image :", err);
-            });
-          }
-        });
-      }
-
       Projet.updateOne({ _id: req.params.id }, { ...updatedProjet, _id: req.params.id })
-        .then(() => res.status(200).json({ message: "Projet modifié et images nettoyées !" }))
+        .then(() => res.status(200).json({ message: "Projet modifié avec succès !" }))
         .catch((error) => res.status(400).json({ error }));
     })
     .catch((error) => {

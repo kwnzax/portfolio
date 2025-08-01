@@ -1,6 +1,7 @@
 const multer = require("multer")
 const sharp = require("sharp")
 const fs = require("fs").promises
+const cloudinary = require('./cloudinary.js'); 
 
 const MIME_TYPES = {
   "image/jpg": "webp",

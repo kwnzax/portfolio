@@ -66,7 +66,9 @@ function Projet() {
                                 minia={projet.minia}
                                 description={projet.description}
                             />
-                            <Problematiques problematiques={projet.problematiques}/>
+                            {projet.problematiques && projet.problematiques.length > 0 && (
+                                <Problematiques problematiques={projet.problematiques} />
+                            )}
                             <Contrainte contrainte={projet.contrainte} />
                         </div>
                         <Slider images={projet.images} />
