@@ -11,8 +11,8 @@ exports.createProjet = (req, res, next) => {
   const projet = new Projet({
     ...projetObject,
     tags: tagsArray,
-    minia: req.processedMinia, 
-    images: req.processedImages, 
+    minia: `${req.protocol}://${req.get("host")}/images/${req.processedMinia}`,
+    images: req.processedImages.map(name => `${req.protocol}://${req.get("host")}/images/${name}`),
   });
 
   projet.save()
@@ -37,11 +37,13 @@ exports.modifyProjet = (req, res, next) => {
   const updatedProjet = { ...req.body };
 
   if (req.processedMinia) {
-    updatedProjet.minia = req.processedMinia; 
+    updatedProjet.minia =  `${req.protocol}://${req.get("host")}/images/${req.processedMinia}`;
   }
 
   if (req.processedImages && req.processedImages.length > 0) {
-    updatedProjet.images = req.processedImages;
+    updatedProjet.images =  req.processedImages.map(name =>
+      `${req.protocol}://${req.get("host")}/images/${name}`
+    );
   }
 
   if (updatedProjet.tags) {
