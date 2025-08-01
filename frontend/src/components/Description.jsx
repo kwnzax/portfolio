@@ -5,7 +5,7 @@ function Description({minia, description}) {
                 <img src={minia}/>
             </div>
             <div className="projetDescription">
-                <h2>Déscription</h2>
+                <h2>Description</h2>
                 <p>{description}</p>
             </div>
         </div>

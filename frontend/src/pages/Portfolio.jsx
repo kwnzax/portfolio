@@ -31,7 +31,7 @@ function Portfolio() {
             <div className="portfolioPage">
                 <section className="portfolio">
                     <div className='title'>
-                        <h1>Porfolio</h1>
+                        <h1>Portfolio</h1>
                         <AdminAcces>
                             <BtnAdd onClick={() => open("projet")} />
                         </AdminAcces>
