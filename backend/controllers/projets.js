@@ -81,34 +81,22 @@ exports.modifyProjet = async (req, res, next) => {
     const projet = await Projet.findOne({ _id: req.params.id });
     if (!projet) return res.status(404).json({ error: "Projet non trouvé" });
 
-    if (req.processedMinia) {
-      const miniaPath = `images/${req.processedMinia}`;
-      const upload = await cloudinary.uploader.upload(miniaPath, { folder: 'portfolio' });
-      updatedProjet.minia = upload.secure_url;
-      fs.unlinkSync(miniaPath);
-
+    if (req.cloudinaryMinia) {
       if (projet.minia) {
         const publicId = getCloudinaryPublicId(projet.minia);
         await cloudinary.uploader.destroy(publicId);
       }
+      updatedProjet.minia = req.cloudinaryMinia;
     }
-
-    if (req.processedImages && req.processedImages.length > 0) {
-      updatedProjet.images = [];
-
-      for (const name of req.processedImages) {
-        const imgPath = `images/${name}`;
-        const upload = await cloudinary.uploader.upload(imgPath, { folder: 'portfolio' });
-        updatedProjet.images.push(upload.secure_url);
-        fs.unlinkSync(imgPath);
-      }
-
+    
+    if (req.cloudinaryImages && req.cloudinaryImages.length) {
       if (Array.isArray(projet.images)) {
         for (const oldUrl of projet.images) {
           const publicId = getCloudinaryPublicId(oldUrl);
           await cloudinary.uploader.destroy(publicId);
         }
       }
+      updatedProjet.images = req.cloudinaryImages;
     }
 
     await Projet.updateOne({ _id: req.params.id }, { ...updatedProjet, _id: req.params.id });
