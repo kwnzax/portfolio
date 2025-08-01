@@ -6,7 +6,6 @@ const MIME_TYPES = {
   "image/jpg": "webp",
   "image/jpeg": "webp",
   "image/png": "webp",
-  "image/webp": "webp"
 }
 
 const storage = multer.memoryStorage()
