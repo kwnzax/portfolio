@@ -5,9 +5,9 @@ import AdminAcces from './AdminAcces'
 function Skills({ id, logo, name, level }) {
 
     let progressColor = "";
-    if (level >= 80) progressColor = "green";
-    else if (level >= 60) progressColor = "yellow";
-    else if (level >= 40) progressColor = "orange";
+    if (level >= 60) progressColor = "green";
+    else if (level >= 40) progressColor = "yellow";
+    else if (level >= 20) progressColor = "orange";
     else progressColor = "red";
 
     return (
