@@ -161,7 +161,6 @@ function ProjetModal({ isOpen, onClose, onSuccess, mode = "add", projet = null }
             placeholder="Problematiques"
             value={problematiques}
             onChange={(e) => setProblematiques(e.target.value)}
-            required
           />
 
           <input
