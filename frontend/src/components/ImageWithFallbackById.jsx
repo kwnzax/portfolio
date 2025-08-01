@@ -3,7 +3,7 @@ import { useState } from "react";
 
 function ImageWithFallbackById({ src, alt, id, type = "default", index = null, className, ...props }) {
   const [attempt, setAttempt] = useState(0);
-  const fallbackExtensions = ["webp"];
+  const fallbackExtensions = ["webp", "png"];
 
   const fileBase = index !== null
     ? `${id}-${type}-${index}`
