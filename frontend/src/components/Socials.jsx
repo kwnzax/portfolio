@@ -7,12 +7,12 @@ function Socials() {
         <div>
             <ul>
                 <li>
-                    <Link to="https://github.com/kwnzax">
+                    <Link to="https://github.com/kwnzax" target="_blank">
                         <FontAwesomeIcon icon={faGithub}/>
                     </Link>
                 </li>
                 <li>
-                    <Link to="https://www.linkedin.com/in/kwnzax">
+                    <Link to="https://www.linkedin.com/in/kwnzax" target="_blank">
                         <FontAwesomeIcon icon={faLinkedin}/>
                     </Link>
                 </li>
